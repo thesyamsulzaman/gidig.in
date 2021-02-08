@@ -38,7 +38,7 @@ class ProductController extends Controller {
        $id = $this->request->getAjax('id');
        $product = Products::findByIdAndUserId((int) $id, $this->currentUser->id);
        if ($product) {
-         // ProductImages::deleteImages($id);
+         ProductImages::deleteImages($id);
          $product->delete();
          $response = ["success" => true, "message" => "Berhasi dihapus", "product_id" => $id];
        }
