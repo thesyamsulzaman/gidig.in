@@ -1,0 +1,10 @@
+{
+  "Dashboard": "admin",
+  "Produk": {
+  	"Semua Produk": "product",
+  	"Konsumsi": "product/category/konsumsi",
+  	"Dokumentasi": "product/category/dokumentasi",
+  	"Alat Berkemah": "product/category/alat-berkemah"
+  },
+  "Users": "users"
+}

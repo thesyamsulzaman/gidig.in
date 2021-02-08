@@ -1,0 +1,11 @@
+{
+  "Home": "home",
+  "Students": {
+  	"Students List": "students",
+  	"Add Student": "students/add",
+  	"separator": ""
+  },
+  "Login": "user/login",
+  "Logout": "user/logout"
+
+}

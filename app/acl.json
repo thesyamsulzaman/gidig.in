@@ -1,0 +1,22 @@
+{
+  "Guest": {
+    "denied": {},
+    "Home": ["*"],
+    "Register": ["login", "register", "detail"],
+    "User": ["login", "register", "detail"],
+    "Restricted": ["*"]
+  },
+  "LoggedIn": {
+    "denied": {
+      "Register": ["login", "register"],
+      "User": ["login", "register"]
+    },
+    "Register": ["logout", "edit"],
+    "User": ["*"]
+  },
+  "SuperAdmin": {
+    "denied": {},
+    "Admin": ["*"],
+    "Product": ["*"]
+  }
+}

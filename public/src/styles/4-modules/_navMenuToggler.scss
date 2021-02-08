@@ -1,0 +1,22 @@
+.nav-menu-toggler {
+  display:block;
+  background:none;
+  border:none;
+  transition: .1s all ease-in;
+}
+
+.nav-menu-toggler:hover {
+  cursor:pointer;
+}
+.nav-menu-toggler:focus {
+  outline:0;
+}
+.nav-menu-toggler.active {
+  transform: rotate(90deg);
+}
+
+@media (min-width: $breakpoint-desktop) { 
+  //.nav-menu-toggler {
+    //display:none;
+  //}
+}

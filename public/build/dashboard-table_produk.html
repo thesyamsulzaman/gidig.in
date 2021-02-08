@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GIDIG.IN | Travel Service On Your Pocket</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/all.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body id="dashboard-page">
+
+
+    <section id="dashboard" class="shrink">
+
+      <aside id="dashboard-sidebar" class="active">
+        <div class="dashboard-header">
+          <img
+            class="dashboard-logo"
+            src="./icons/gidigin_icon-white.png"
+            width="150"
+            alt=""
+          />
+        </div>
+        <ul class="sidebar-list">
+          <li class="sidebar-link"><a href="./dashboard.html">Dashboard</li>
+          <li class="sidebar-link accordion">
+            <a href="#" class="accordion-header active">
+              <strong>Produk</strong><img class="accordion-header-chevron" src="./icons/chevron-down.svg" alt="" width="25">
+            </a>
+            <div class="accordion-body active">
+              <ul class="accordion-list">
+                <li class="accordion-link"><a href="">Paket</a></li>
+                <li class="accordion-link active"><a href="">Konsumsi</a></li>
+                <li class="accordion-link"><a href="">Dokumentasi</a></li>
+                <li class="accordion-link"><a href="">Alat Berkemah</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-link"><a href="">Users</a></li>
+        </ul>
+      </aside>
+
+      <content id="dashboard-content">
+        <nav class="dashboard-nav">
+          <button class="sidebar-toggler">
+            <img src="./icons/menu.svg" alt="" />
+          </button>
+          <a href="#">
+            <img src="./icons/default.png" width="30" alt="" />
+          </a>
+        </nav>
+
+        <div class="content-container">
+
+
+
+          <div class="content-header">
+            <a href="./dashboard-produk_baru.html" class="">Konsumsi</a>
+          </div>
+          <div class="content-table card shadow">
+            <table>
+              <div class="table-header">
+                <p class="">List Produk</p>
+                <button class="btn btn-dark"> + Export</button>
+              </div>
+              <tr>
+                <th>Id</th>
+                <th>Gambar</th>
+                <th>Nama</th>
+                <th>Harga</th>
+                <th>Deskripsi</th>
+                <th>Aksi</th>
+              </tr>
+              <tr>
+                <td>USA</td>
+                <td>Washington, D.C.</td>
+                <td>309 million</td>
+                <td>English</td>
+              </tr>
+              <tr>
+                <td>Sweden</td>
+                <td>Stockholm</td>
+                <td>9 million</td>
+                <td>Swedish</td>
+              </tr>
+            </table>
+          </div>
+      </content>
+    </section>
+
+    <script src="./scripts/script-min.js"></script>
+  </body>
+</html>

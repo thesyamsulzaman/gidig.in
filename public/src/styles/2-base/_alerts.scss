@@ -1,0 +1,39 @@
+.alert {
+  position:absolute;
+  right:20px;
+  top:20px;
+  z-index:9999;
+  color: #fff;
+  padding: 1em .8em;
+  width: 200px;
+  border-radius: 5px;
+  display:flex;
+  justify-content:space-between;
+  margin:0 auto;
+}
+
+.alert.show {
+  animation: show_slide .51s ease forwards;
+}
+.alert.hide {
+  display:none;
+}
+
+@keyframes show_slide {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+
+
+.alert-success {
+  background: $softGreen;
+}
+.alert-danger {
+  background: $softRed;
+}
+

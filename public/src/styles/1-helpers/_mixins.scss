@@ -1,0 +1,7 @@
+
+@mixin fullScreenImage($minHeight: 100%, $maxHeight: 100%) {
+  min-height: $minHeight;
+  max-height: $maxHeight;
+  width:100%;
+  object-fit:cover;
+}

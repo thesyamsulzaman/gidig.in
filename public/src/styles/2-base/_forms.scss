@@ -1,0 +1,64 @@
+input,
+textarea {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.form-group {
+  //margin-top: .2em;
+  //border: 1px solid pink;
+  padding: 0.6em 0;
+
+  & > label {
+    display: block;
+  }
+  & > .form-control:focus {
+    outline: 0;
+    box-shadow: 0 0 2pt 1pt #111;
+  }
+
+  & > textarea[class="form-control"],
+  & > select[class="form-control"],
+  & > .form-control[type="number"],
+  & > .form-control[type="text"],
+  & > .form-control[type="file"],
+  & > .form-control[type="email"],
+  & > .form-control[type="password"] {
+    display: block;
+    width: 100%;
+    margin-top: 0.7em;
+    padding: 0.6em 0.6em;
+    font-size: 1rem;
+    border: 1px solid #bbb;
+    //outline: 1px solid #eee;
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+  }
+
+  & > textarea[class="form-control"] {
+    width: 100%;
+    resize: vertical;
+    min-height: 150px;
+  }
+
+  & > .form-control[type="checkbox"] {
+    margin-right: 0.51em;
+  }
+
+  & > select[class="form-control"] {
+    background: none;
+  }
+
+}
+
+.form-group[data-error] .form-control {
+  border: 2px solid #c92432;
+  background: #fffafa;
+  color: #c92432;
+}
+.form-group[data-error]::after {
+  content: attr(data-error);
+  margin-top: 0.5em;
+  display: block;
+  color: #c92432;
+}

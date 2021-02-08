@@ -1,0 +1,33 @@
+.categories-dropdown {
+
+  display:flex;
+  flex-direction:column;
+
+  & > .dropdown-button {
+  	font-size: 1.2rem;
+
+  	& > img{
+  		transition: .1s ease-in;
+  	}
+  }
+
+  & > .dropdown-button.active img {
+  		transform: rotate(180deg);
+  }
+
+  & > .dropdown-content.active {
+  	max-height: 100%;
+  }
+  & > .dropdown-content {
+  	max-height: 0;
+  	overflow: hidden;
+	  margin-top: .3em;
+	  padding-left: .7em;
+
+	  & a {
+	  	display: block;
+	  	padding: .5em 0;
+	  }
+  }
+
+}

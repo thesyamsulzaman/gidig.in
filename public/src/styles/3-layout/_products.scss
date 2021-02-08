@@ -1,0 +1,24 @@
+#products {
+  height:100vh;
+  position:relative;
+
+  & .container {
+    margin-top: 4.7em;
+  }
+}
+
+
+.products-list {
+  //margin-top: 1.3em;
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items:start;
+  grid-gap: 10px;
+}
+
+
+@media (min-width: $breakpoint-desktop) { 
+  .products-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

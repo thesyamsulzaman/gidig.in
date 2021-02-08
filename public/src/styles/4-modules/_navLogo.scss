@@ -1,0 +1,12 @@
+.nav-logo {
+  width: 120px;
+  display:block;
+  margin: 0 auto;
+}
+
+@media (min-width: $breakpoint-desktop) { 
+  .nav-logo {
+    margin:0;
+    margin-left: .5em;
+  }
+}

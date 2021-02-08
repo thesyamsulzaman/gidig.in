@@ -1,0 +1,38 @@
+#dashboard {
+  display:flex;
+  margin-left: 0;
+  background-color: #f7f7ff;
+  overflow-x:hidden;
+
+  & .content-container {
+    margin:0;
+    margin-top:.51em;
+    width:auto;
+    padding:.3em .9em;
+  }
+}
+
+
+#dashboard.shrink {
+  margin-left: 200px;
+}
+
+#dashboard-content {
+  width:100vw;
+}
+.dashboards-container {
+  height:auto;
+  display:grid;
+  grid-gap: 20px;
+
+  grid-template-areas: "chart"
+                       "products"
+                       "users"
+}
+
+@media (min-width: $breakpoint-desktop) {
+  .dashboards-container {
+    grid-template-areas:"chart chart chart"
+                        "users products products"
+   }                      
+}

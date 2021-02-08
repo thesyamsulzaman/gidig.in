@@ -1,0 +1,9 @@
+.dashboard-chart-card {
+  width: 100%;
+  height: 250px; 
+  background-color: $coal;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 2px 2px rgba(0, 0, 0, 0.23);
+  border-radius:5px;
+  grid-area: chart;
+
+}

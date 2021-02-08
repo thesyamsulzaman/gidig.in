@@ -1,0 +1,11 @@
+.badge {
+  font-size: .55rem;
+  padding: .5em .6em;
+  border-radius: 4px;
+  width: auto;
+  position:relative;
+}
+.badge-dark {
+  background: $gray;
+  color: #fff;
+}

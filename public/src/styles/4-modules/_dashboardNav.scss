@@ -1,0 +1,15 @@
+.dashboard-nav {
+  position: sticky;
+  top:0;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:.5em .9em;
+  background-color: #fff;
+  border-bottom:1px solid darkgray;
+}
+.sidebar-toggler {
+  cursor:pointer;
+}

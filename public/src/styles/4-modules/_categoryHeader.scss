@@ -1,0 +1,14 @@
+.category-header {
+  font-family: $font-medium;
+  font-size: 1.6rem;
+  margin: .4em 0;
+
+  &::before {
+    content: "";
+    display:block;
+    width: 20px;
+    border-top: 3px solid #111;
+    margin-bottom: .5em;
+  }
+}
+

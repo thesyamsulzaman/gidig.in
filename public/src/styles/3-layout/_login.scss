@@ -1,0 +1,17 @@
+#login {
+  margin-top: 5.5em;
+
+  
+  & > .login-form {
+    margin:0 auto;
+    max-width: 500px;
+    
+    & > .login-header {
+      font-size: 2rem;
+      margin: 0 auto;
+      display:block;
+      text-align:center;
+      margin: .21em 0;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+.shopping-cart {
+  position: relative;
+
+  & img {
+    width: 28px;
+  }
+  & span {
+    font-size:.9rem;
+    background-color: $gray;
+    color:#fff;
+    padding: .2em .25em;
+    border-radius: 6px;
+    position:absolute;
+    top:-5px;
+    right:-5px;
+  }
+}

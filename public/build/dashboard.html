@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GIDIG.IN | Travel Service On Your Pocket</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body id="dashboard-page">
+    <section id="dashboard">
+      <aside id="dashboard-sidebar">
+        <div class="dashboard-header">
+          <img
+            class="dashboard-logo"
+            src="./icons/gidigin_icon-white.png"
+            width="150"
+            alt=""
+          />
+        </div>
+        <ul class="sidebar-list">
+          <li class="sidebar-link active">
+            <a href="">Dashboard</a>
+          </li>
+          <li class="sidebar-link accordion">
+            <a href="#" class="accordion-header ">
+              <strong>Produk</strong><img class="accordion-header-chevron"
+              src="./icons/chevron-down-white.png" alt="" width="25">
+            </a>
+            <div class="accordion-body">
+              <ul class="accordion-list">
+                <li class="accordion-link"><a href="">Paket</a></li>
+                <li class="accordion-link"><a href="./dashboard-table_produk.html">Konsumsi</a></li>
+                <li class="accordion-link"><a href="">Dokumentasi</a></li>
+                <li class="accordion-link"><a href="">Alat Berkemah</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-link"><a href="">Users</a></li>
+        </ul>
+      </aside>
+
+      <content id="dashboard-content">
+        <nav class="dashboard-nav">
+          <button class="sidebar-toggler">
+            <img src="./icons/menu.svg" alt="" />
+          </button>
+          <a href="#">
+            <img src="./icons/default.png" width="30" alt="" />
+          </a>
+        </nav>
+
+        <div class="content-container">
+          <div class="dashboards-container">
+            <div class="dashboard-chart-card"></div>
+            <div class="dashboard-best-products-card"></div>
+            <div class="dashboard-users-card">
+              <table class="dashboard-users-table">
+                <tr>
+                  <th>Name</th>
+                  <th>Level</th>
+                </tr>
+                <tr>
+                  <td>Syamsul Zaman</td>
+                  <td>Admin</td>
+                </tr>
+                <tr>
+                  <td>Deandra Reynolds</td>
+                  <td>User</td>
+                </tr>
+                <tr>
+                  <td>Dennis Reynolds</td>
+                  <td>User</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </content>
+      
+    </section>
+
+    <script src="./scripts/script-min.js"></script>
+  </body>
+</html>

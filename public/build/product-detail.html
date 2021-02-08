@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GIDIG.IN | Travel Service On Your Pocket </title>
+    <link rel="stylesheet" href="css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body id="product-detail">
+
+    <header id="header">
+
+      <div class="sidebar">
+
+
+        <div class="categories-dropdown">
+          <a href="#" onclick="myFunction()" class="dropdown-button">
+            Categories
+            <img src="./icons/chevron-down.svg" height="12" alt="">
+          </a>
+          <div id="myDropdown" class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </div>
+
+        <div class="user-action">
+          <!--<a href="#">Hi, Syamsul</a>-->
+          <a href="#">Login</a>
+          <a href="#">Signup</a>
+        </div>
+
+      </div>
+
+      <div class="container search-bar">
+        <form action="" class="search-form">
+          <input type="submit" class="search-button" value="">
+          <input type="text" class="search-input" placeholder="Search for product">
+          <img class="search-box-exit" src="./icons/x.svg" alt="" style="margin-right: .8em; cursor: pointer;">
+        </form>
+      </div>
+
+      <div class="container navbar navbar-show">
+        <button class="nav-menu-toggler">
+          <img src="./icons/menu.svg" alt="">
+        </button>
+
+        <a href="#" class="nav-home-link" style="flex:1;display:block;">
+          <img style="" class="nav-logo" src="./icons/gidigin_icon.png" alt="">
+        </a>
+
+        <a class="search-toggler" href="#" style="margin-right: .5em; cursor: pointer;">
+          <img width="22" src="./icons/search-alt.svg" alt="">
+        </a>
+
+        <a class="shopping-cart" href="">
+          <img src="./icons/shopping-cart.svg" alt="">
+          <span>30</span>
+        </a>
+      </div>
+
+
+    </header>
+
+
+
+    <section id="products">
+      <div class="container">
+
+        <div class="navigator">
+          <img src="./icons/arrow-left.svg" alt="">
+          <a href="./konsumsi-products.html">Kembali</a>
+        </div>
+
+        <div class="product-detail">
+          <div class="product-detail-images">
+            <img class="product-detail-img" src="./images/images (1).jpeg" alt="">
+            <div class="product-detail-sub-images">
+              <img class="product-detail-sub-image sub-image-active" alt="" src="./images/images (1).jpeg">
+              <img class="product-detail-sub-image" alt="" src="./images/images (3).jpeg">
+              <img class="product-detail-sub-image" alt="" src="./images/images (4).jpeg">
+            </div>
+          </div>
+
+          <div class="product-detail-info">
+            <h1 class="product-detail-title">Mie Goreng Capcay</h1>
+            <p class="product-detail-price">Rp 18.000</p>
+
+
+            <div class="product-detail-description">
+              <span class="product-detail-description-header">
+                Deskripsi Produk
+              </span>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              </p>
+            </div>
+
+
+            <div class="product-detail-cart-action">
+              <div class="product-detail-cart-quantity">
+                <button class="quantity-operator quantity-minus"> 
+                  <img src="./icons/minus-square.svg" alt="">
+                </button>
+                <span>1</span>
+                <button class="quantity-operator quantity-plus"> 
+                  <img src="./icons/plus-square.svg" alt="">
+                </button>
+              </div>
+              <button class="btn btn-lg btn-block btn-dark">Add to cart</button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+    </section>
+
+
+
+    <script src="./scripts/script-min.js"></script>
+  </body>
+</html>
