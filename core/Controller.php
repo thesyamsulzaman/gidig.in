@@ -18,7 +18,8 @@
     }
     
     /**
-     * Called when a Controller object is constructed
+     * 
+     * Hook that will be called when a Controller object is constructed
      * @method onConstruct
      */
     public function onConstruct(){}
