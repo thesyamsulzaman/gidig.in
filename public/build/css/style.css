@@ -169,7 +169,8 @@ textarea {
   border-radius: 3px; }
 
 .card.shadow {
-  box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2); }
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
 
 .alert {
   position: absolute;
@@ -717,7 +718,8 @@ textarea {
     #dashboard-sidebar .sidebar-list .sidebar-link.active {
       background-color: #111; }
     #dashboard-sidebar .sidebar-list .sidebar-link a {
-      color: #fff; }
+      color: #fff;
+      margin-left: .5em; }
     #dashboard-sidebar .sidebar-list .accordion {
       margin-top: .3em; }
     #dashboard-sidebar .sidebar-list .accordion:hover {
@@ -737,9 +739,6 @@ textarea {
   align-items: center;
   justify-content: space-between;
   transform: rotate(0); }
-  .accordion-header img {
-    margin-top: .14em;
-    margin-left: .3em; }
 
 .accordion-body.active {
   max-height: 100%; }

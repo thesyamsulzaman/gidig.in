@@ -29,13 +29,15 @@ $dashboard_menu = Router::get_menu("dashboard_menu_acl");
         <li class="sidebar-link accordion">
           <a href="#" class="accordion-header ">
             <strong><?= $key; ?></strong>
-            <img class="accordion-header-chevron" src="<?= STATIC_FILES; ?>build/icons/chevron-down-white.png" alt="" width="25">
+            <i class="fas fa-chevron-down accordion-header-chevron"></i>
           </a>
           <div class="accordion-body active">
             <ul class="accordion-list">
             <?php foreach($value as $k => $v): ?>
               <?php $active = ($v === $currentPage) ? 'active' : '' ; ?>
-              <li class="accordion-link <?= $active; ?>"><a href="<?= $v; ?>"><?= $k; ?></a> </li>
+              <li class="accordion-link <?= $active; ?>">
+                <a href="<?= $v; ?>"><?= $k; ?></a> 
+              </li>
             <?php endforeach; ?>
             </ul>
           </div>
@@ -44,7 +46,10 @@ $dashboard_menu = Router::get_menu("dashboard_menu_acl");
         <?php else: ?>
           <?php $active = ($value === $currentPage) ? 'active' : '' ; ?>
           <li class="sidebar-link <?= $active; ?>">
-            <a href="<?= $value; ?>"><?= $key; ?></a>
+            <i class="fas fa-home"></i>
+            <a href="<?= $value; ?>">
+              <?= $key; ?>
+            </a>
           </li>
 
         <?php endif; ?>

@@ -46,6 +46,7 @@
     }
     & .sidebar-link a {
       color: #fff;
+      margin-left: .5em;
     }
 
     & .accordion {
@@ -78,12 +79,7 @@
     justify-content:space-between;
     transform: rotate(0);
 
-    & img {
-      margin-top:.14em;
-      margin-left: .3em;
-    }
   }
-
 
   &-body.active {
     max-height:100%;

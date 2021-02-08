@@ -30,6 +30,99 @@ class ProductController extends Controller {
 		$this->view->render('product/category');
   }
 
+  public function editAction($id) {
+    $user = $this->currentUser;
+    $product = Products::findByIdAndUserId((int) $id, (int) $user->id);
+    $productImages = new ProductImages();
+
+    $images = ProductImages::findByProductId($id);
+    if ($this->request->isPost()) {
+
+      $this->request->csrfCheck();
+
+
+      $product->assign($this->request->get());
+      $product->user_id = $this->currentUser->id;
+      $product->featured = ($this->request->get("featured") === "on") ? 1 : 0 ;
+
+      $product->isRentable($product->rentable());
+      $product->validator();
+
+      // $uploads = new Uploads($_FILES['images']);
+      // $uploads->runValidation();
+      // $imageErrors = $uploads->validates();
+      
+      // if (is_array($imageErrors)) {
+      //   $msg = '';
+      //   foreach ($imageErrors as $field => $message) {
+      //     $msg .= $message . "";
+      //   }
+      //   $product->addErrorMessage('images[]',  trim($msg));
+      // }
+
+
+
+      if ($product->save()) {
+        // $productImages::uploadProductImages($product->id, $uploads);
+        Router::redirect("product"); 
+      }
+
+
+    }
+
+    $this->view->product = $product;
+    $this->view->formAction = PROJECT_ROOT . 'product' . DS . 'edit' . DS . $id;
+    $this->view->displayErrors = $product->getErrorMessages();
+    $this->view->render('product/edit');
+
+
+  }
+
+  public function addAction() {
+
+    $product = new Products();
+    $productImages = new ProductImages();
+
+    if ($this->request->isPost()) {
+
+      $this->request->csrfCheck();
+
+
+      $uploads = new Uploads($_FILES['images']);
+      $uploads->runValidation();
+      $imageErrors = $uploads->validates();
+
+      $product->assign($this->request->get());
+      $product->user_id = $this->currentUser->id;
+      $product->featured = ($this->request->get("featured") === "on") ? 1 : 0 ;
+
+      $product->isRentable($product->rentable());
+      $product->validator();
+
+
+      if (is_array($imageErrors)) {
+        $msg = '';
+        foreach ($imageErrors as $field => $message) {
+          $msg .= $message . "";
+        }
+        $product->addErrorMessage('images[]',  trim($msg));
+      }
+
+      if ($product->save()) {
+        $productImages::uploadProductImages($product->id, $uploads);
+        Router::redirect("product"); 
+      }
+
+
+    }
+
+    $this->view->product = $product;
+    $this->view->productImages = $productImages;
+    $this->view->displayErrors = $product->getErrorMessages();
+    $this->view->formAction = PROJECT_ROOT . 'product' . DS . 'add';
+    $this->view->render('product/add');
+  }
+
 
   public function deleteAction() { 
      $response = ["success" => false, 'message' => "Terjadi kesalahan ..."];
@@ -68,50 +161,6 @@ class ProductController extends Controller {
 
      $this->jsonResponse($response);
 
-  }
-  public function addAction() {
-
-  	$product = new Products();
-    $productImages = new ProductImages();
-
-  	if ($this->request->isPost()) {
-
-      $this->request->csrfCheck();
-
-
-      $uploads = new Uploads($_FILES['images']);
-      $uploads->runValidation();
-      $imageErrors = $uploads->validates();
-
-      $product->assign($this->request->get());
-      $product->user_id = $this->currentUser->id;
-      $product->featured = ($this->request->get("featured") === "on") ? 1 : 0 ;
-
-      $product->isRentable($product->rentable());
-      $product->validator();
-
-
-      if (is_array($imageErrors)) {
-        $msg = '';
-        foreach ($imageErrors as $field => $message) {
-          $msg .= $message . "";
-        }
-        $product->addErrorMessage('images[]',  trim($msg));
-      }
-
-      if ($product->save()) {
-        $productImages::uploadProductImages($product->id, $uploads);
-        Router::redirect("product"); 
-      }
-
-
-  	}
-
-  	$this->view->product = $product;
-    $this->view->productImages = $productImages;
-    $this->view->displayErrors = $product->getErrorMessages();
-    $this->view->formAction = PROJECT_ROOT . 'product' . DS . 'add';
-  	$this->view->render('product/add');
   }
   
 }

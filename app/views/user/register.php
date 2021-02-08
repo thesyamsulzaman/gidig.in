@@ -19,23 +19,23 @@
 			</div>    	
       <div class="form-group">
         <label for="username">Username</label>
-        <input id="username" name="username" placeholder="Username here" class="form-control" type="text">
+        <input id="username" value="<?= $this->newUser->username; ?>" name="username" placeholder="Username here" class="form-control" type="text">
       </div>
       <div class="form-group">
         <label for="first_name">First Name</label>
-        <input id="first_name" name="first_name" placeholder="First Name" class="form-control" type="text">
+        <input id="first_name" value="<?= $this->newUser->first_name; ?>" name="first_name" placeholder="First Name" class="form-control" type="text">
       </div>
       <div class="form-group">
         <label for="last_name">Last Name</label>
-        <input id="last_name" name="last_name" placeholder="Last Name" class="form-control" type="text">
+        <input id="last_name" name="last_name" value="<?= $this->newUser->last_name; ?>" placeholder="Last Name" class="form-control" type="text">
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input id="email" name="email" class="form-control" type="email">
+        <input id="email" name="email" class="form-control" value="<?= $this->newUser->email; ?>" type="email">
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input id="password"  name="password" class="form-control" type="password">
+        <input id="password"  name="password" class="form-control" value="<?= $this->newUser->password; ?>" type="password">
       </div>
       <div class="form-group">
         <label for="confirm_password">Confirm Password</label>

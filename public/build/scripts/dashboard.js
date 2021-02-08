@@ -25,6 +25,7 @@ const app = {
     }
 
     switch (section) {
+      case "edit-product":
       case "add-product":
         app.formValidation();
         console.log("Component Loaded")

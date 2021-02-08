@@ -52,7 +52,6 @@
     public function registerAction() {
       $newUser = new Users();
 
-
       if ($this->request->isPost()) {
 
         $this->request->csrfCheck();

@@ -53,7 +53,7 @@ use App\Models\Users;
             <a href="" onclick="toggleFeatured('<?= $product->id; ?>'); return false;">
               <i data-id="<?= $product->id; ?>" class="<?= ($product->featured === 1) ? "fas fa-star" : "far fa-star"; ?>"></i>
             </a>
-            <a href="">
+            <a href="<?= PROJECT_ROOT; ?>product/edit/<?= $product->id; ?>">
               <i class="fas fa-edit"></i>
             </a>
             <a href="#" onclick="deleteProduct('<?= $product->id; ?>'); return false;">
@@ -85,7 +85,7 @@ use App\Models\Users;
     .then(data => {
       let starElem = document.querySelector(`i[data-id='${data.product_id}']`);
       let tdElem = document.querySelector(`td[data-id='${data.product_id}']`);
-      
+
       let featured = (data.is_featured) ? "fas fa-star" : "far fa-star" ;
       let featuredStr = (data.is_featured) ? "Ya" : "Tidak" ;
 

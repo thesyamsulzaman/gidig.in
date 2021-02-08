@@ -3,10 +3,10 @@
 
  <nav class="dashboard-nav">
   <button class="sidebar-toggler">
-    <img src="<?= STATIC_FILES; ?>build/icons/menu.svg" alt="" />
+  	<i class="fas fa-toggle-on"></i>
   </button>
   <a href="#">
-    <img src="<?= STATIC_FILES; ?>build/icons/default.png" width="30" alt="" />
+  	<i class="fas fa-user"></i>
   </a>
 </nav>
 
