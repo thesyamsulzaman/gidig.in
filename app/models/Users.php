@@ -80,17 +80,19 @@ class Users extends Model {
     if ($rememberMe) {
       $hash = md5(uniqid());
       $user_agent = Session::user_agent_no_version();
-      Cookie::set($this->_cookieName, $hash, REMEMBER_ME_COOKIE_EXPIRY);
+      Cookie::set(REMEMBER_ME_COOKIE_NAME, $hash, REMEMBER_ME_COOKIE_EXPIRY);
       $fields = ['session' => $hash, "user_agent" => $user_agent, 'user_id' => $this->id];
       self::$_db->query("DELETE FROM user_sessions WHERE user_id = ? AND user_agent = ?", [$this->id, $user_agent]);
-      self::$_db->insert("user_sessions", $fields);
+      $user_session = new UserSessions();
+      $user_session->assign($fields);
+      $user_session->save();
     }
   }
 
   public static function loginUserFromCookie() {
     $user_session = UserSessions::getFromCookie();
     if ($user_session && $user_session->user_id != '') {
-      $user = self::findById((int)$userSession->user_id);
+      $user = self::findById((int)$user_session->user_id);
       if ($user) {
         $user->login();
       }

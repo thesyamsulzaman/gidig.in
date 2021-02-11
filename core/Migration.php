@@ -1,7 +1,7 @@
 <?php
   namespace Core;
-  use Core\DB;
-  use Core\H;
+  use Core\Database;
+  use Core\Helpers;
 
   abstract class Migration{
     protected $_db;
@@ -15,7 +15,7 @@
   ];
 
   public function __construct(){
-    $this->_db = DB::getInstance();
+    $this->_db = Database::getInstance();
   }
 
   abstract function up();

@@ -30,7 +30,7 @@ $featuredIsChecked = ($this->product->featured === 1) ? "checked" : "" ;
       <label for="barang_sewa">Produk Sewaan</label>
     </div>
     <div style="margin-left: .9em;">
-      <input name="featured" <?= $featuredIsChecked; ?> type="checkbox" class="form-control"/>
+      <input name="featured" id="featured" <?= $featuredIsChecked; ?> type="checkbox" class="form-control"/>
       <label for="featured">Produk Unggulan</label>
     </div>
   </div>
@@ -60,11 +60,12 @@ $featuredIsChecked = ($this->product->featured === 1) ? "checked" : "" ;
     <textarea name="description" id="deskripsi" class="form-control"><?= $this->product->description; ?></textarea>
   </div>
 
-  <div class="form-group">
-    <label>Gambar Produk</label>
-    <input type="file" multiple="multiple" id="images[]" name="images[]" class="form-control">
+  <div class="form-group drop-image" style="margin-bottom: .5em">
+    <span class="drop-image__prompt">Drop atau Click untuk
+      mengupload gambar produk</span>
+    <input type="file" name="images[]" class="form-control drop-image__holder"/>
   </div>
-
+ 
 
   <div class="form-group">
     <input class="btn btn-lg btn-block btn-dark" type="submit" value="Simpan"/>

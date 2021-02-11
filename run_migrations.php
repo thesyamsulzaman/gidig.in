@@ -43,3 +43,5 @@ foreach($migrations as $fileName){
     $db->insert('migrations',['migration'=>$klass]);
   }
 }
+
+//echo phpinfo();

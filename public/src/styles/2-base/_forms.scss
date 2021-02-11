@@ -49,6 +49,12 @@ textarea {
     background: none;
   }
 
+  & > .form-control[name="images[]"] {
+    display:none;
+
+  }
+
+
 }
 
 .form-group[data-error] .form-control {
@@ -61,4 +67,59 @@ textarea {
   margin-top: 0.5em;
   display: block;
   color: #c92432;
+}
+
+.drop-image {
+  margin-top: 0.7em;
+  border: 5px dashed #bbb;
+  width: auto;
+  height: 200px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  cursor:pointer;
+  padding: .8em;
+  color: #bbb;
+  line-height: 20px;
+  position:relative;
+
+  &[data-error]::after {
+    content: attr(data-error);
+    display:block;
+    position:absolute;
+    bottom:10%;
+    color: red;
+  }
+  &[data-error] {
+    border-color: red;
+  }
+
+  &--over {
+    border-style:solid;
+  }
+
+  &__holder {
+    display:none;
+  }
+
+  &__thumbnail {
+    width: 100%;
+    height:100%;
+    border: 1px solid pink;
+    border-radius: 5px;
+    overflow:hidden;
+    background: #ccc;
+    background-size:cover;
+    position:relative;
+  }
+  &__thumbnail::after {
+    content: attr(data-label);
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    background: rgba(0,0,0,0.75);
+    padding: .6em 0;
+  }
 }

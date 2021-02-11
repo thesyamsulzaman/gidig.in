@@ -66,12 +66,21 @@ class Products extends Model {
 
 
 	public function rentable() {
-		return $this->rentable === "on";
+		return ($this->rentable === "on");
+	}
+
+	public function featured() {
+		return ($this->featured === "on");
 	}
 
 	public function isRentable($rentable = false) {
-		if ($rentable) return $this->rentable = 1;
-		else return $this->rentable = 0;
+		if ($rentable) $this->rentable = 1;
+		else $this->rentable = 0;
+	}
+
+	public function isFeatured($featured = false) {
+		if ($featured) $this->featured = 1;
+		else;
 	}
 
 

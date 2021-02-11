@@ -5,28 +5,28 @@
   border-radius: 5px;
   text-align:center;
   border: 1px solid #bbb;
-}
+  outline:0;
 
-.btn-sm {
-  padding: .4em .8em;
-  font-size: .7rem;
-}
+  &-sm {
+    padding: .4em .8em;
+    font-size: .7rem;
+  }
+  &-lg {
+    padding: .65em .8em;
+    font-size: 1rem;
 
-.btn-lg {
-  padding: .65em .8em;
-  font-size: 1rem;
-}
+  }
+  &-block {
+    width:100%;
 
-.btn-block {
-  width:100%;
-}
+  }
+  &-dark {
+    background: $black;
+    color:#fff;
+    
+  }
+  &-dark:hover {
+    background: #111;
 
-
-.btn-dark {
-  background: $black;
-  color:#fff;
-}
-
-.btn-dark:hover {
-  background: #111;
+  }
 }

@@ -75,11 +75,12 @@ $categories = [
         <textarea name="description" id="deskripsi" class="form-control"><?= $this->product->description; ?></textarea>
       </div>
 
-      <?php $this->partial('product','editImages') ?>
+        <?php $this->partial('product','editImages') ?>
 
-      <div class="form-group">
-        <label>Gambar Produk</label>
-        <input type="file" multiple="multiple" id="images[]" name="images[]" class="form-control">
+      <div class="form-group drop-image" style="margin-bottom: .5em">
+        <span class="drop-image__prompt">Drop atau Click untuk
+        mengupload gambar produk</span>
+        <input type="file" name="images[]" class="form-control drop-image__holder"/>
       </div>
 
 

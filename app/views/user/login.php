@@ -24,6 +24,10 @@
         <label for="password">Password</label>
         <input id="password" name="password" value="<?= $this->login->password; ?>" class="form-control" type="password">
       </div>
+      <div class="form-group" style="display: flex;">
+        <input name="remember_me" type="checkbox" class="form-control"/>
+        <label for="remember_me">Ingat saya </label>
+      </div>
       <div class="form-group">
         <button class="btn btn-lg btn-block btn-dark">Login</button>
       </div>

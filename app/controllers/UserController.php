@@ -30,7 +30,7 @@
           if ($user && password_verify($this->request->get("password"), $user->password)) {
             $remember = $loginModel->getRememberMeChecked();
             $user->login($remember);
-            Router::redirect('');
+            // Router::redirect('');
           } else if ($user && !password_verify($this->request->get("password"), $user->password)) {
             $loginModel->addErrorMessage('password', 'Wrong Password');
           } else {
