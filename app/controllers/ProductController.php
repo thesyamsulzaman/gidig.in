@@ -40,13 +40,19 @@ class ProductController extends Controller {
 
       $this->request->csrfCheck();
 
-
       $product->assign($this->request->get());
-      $product->user_id = $this->currentUser->id;
-      $product->featured = ($this->request->get("featured") === "on") ? 1 : 0 ;
 
       $product->isRentable($product->rentable());
+      $product->isFeatured($product->featured());
+      $product->user_id = $this->currentUser->id;
+
+
       $product->validator();
+
+
+      $uploads = new Uploads($_FILES['images']);
+      $uploads->runValidation();
+      $imageErrors = $uploads->validates();
 
       // $uploads = new Uploads($_FILES['images']);
       // $uploads->runValidation();

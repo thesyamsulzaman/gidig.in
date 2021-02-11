@@ -116,6 +116,17 @@ textarea {
     background: none; }
   .form-group > .form-control[name="images[]"] {
     display: none; }
+  .form-group > .sortable-images {
+    margin-top: .07em; }
+
+.sortable-images {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center; }
+  .sortable-images .sortable-image:not(.sortable-image:first-child) {
+    margin-left: .9em; }
+  .sortable-images .sortable-image.dragging {
+    opacity: .5; }
 
 .form-group[data-error] .form-control {
   border: 2px solid #c92432;

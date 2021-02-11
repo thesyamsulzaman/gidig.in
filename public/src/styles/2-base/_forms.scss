@@ -51,9 +51,31 @@ textarea {
 
   & > .form-control[name="images[]"] {
     display:none;
-
   }
 
+  & > .sortable-images {
+    margin-top: .07em;
+  }
+
+
+  
+}
+
+.sortable-images {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  //background: #111;
+
+  & .sortable-image:not(.sortable-image:first-child) {
+    margin-left: .9em;
+  }
+
+  & .sortable-image.dragging {
+    opacity: .5;
+  }
+
+  
 
 }
 

@@ -45,13 +45,13 @@ function watch() {
       baseDir: "build",
     },
   });
-  gulp.watch("src/js/**/*.js", jsMinify);
+  //gulp.watch("src/js/**/*.js", jsMinify);
   gulp.watch("src/styles/**/*.scss", style);
   gulp.watch("src/images/*", imageMinify);
   gulp.watch("build/*.html").on("change", browserSync.reload);
 }
 
 exports.style = style;
-exports.jsMinify = jsMinify;
+//exports.jsMinify = jsMinify;
 exports.watch = watch;
 exports.imageMinify = imageMinify;

@@ -13,8 +13,6 @@ const app = {
   },
 
   bindingInteraction: () => {
-
-    
     let page = document.body.id;
     let section = document.querySelectorAll("section")[1].id;
 
@@ -26,38 +24,87 @@ const app = {
 
     switch (section) {
       case "edit-product":
+        app.sortableDragAndDrop();
+      case "edit-product":
       case "add-product":
         app.formValidation();
         app.dragAndDropUploader();
-        console.log("Component Loaded")
+        console.log("Component Loaded");
         break;
       default:
         console.log("Log out something else");
     }
-
-
   },
 
   alert: () => {
     document.querySelector(".close-btn").addEventListener("click", function(e) {
       document.querySelector(".alert").classList.remove("show");
       document.querySelector(".alert").classList.add("hide");
-    })
+    });
   },
 
+  sortableDragAndDrop: () => {
+    const draggableItems = document.querySelectorAll(".sortable-image");
+    const draggableItemsContainer = document.querySelector(".sortable-images");
+
+    draggableItems.forEach(draggableItem => {
+      draggableItem.addEventListener("dragstart", e => {
+        draggableItem.classList.add("dragging");
+      });
+
+      draggableItem.addEventListener("dragend", e => {
+        draggableItem.classList.remove("dragging");
+      });
+    });
+
+    draggableItemsContainer.addEventListener("dragover", e => {
+      e.preventDefault();
+      const dragable = document.querySelector(".dragging");
+      const afterElement = getDragAfterElement(
+        draggableItemsContainer,
+        e.clientX
+      );
+      if (afterElement == null) {
+        draggableItemsContainer.appendChild(dragable);
+      } else {
+        draggableItemsContainer.insertBefore(dragable, afterElement);
+      }
+      draggableItemsContainer.appendChild(dragable);
+    });
+
+    function getDragAfterElement(container, x) {
+      const dragableElements = [
+        ...container.querySelectorAll(".sortable-image:not(.dragging)")
+      ];
+
+      dragableElements.reduce(
+        (closest, child) => {
+          const box = child.getBoundingClientRect();
+          const offset = x - box.left - box.width / 2;
+          console.log(offset);
+          if (offset < 0 && offset > closest.offset) {
+            return { offset, element: child };
+          } else {
+            return closest;
+          }
+        },
+        { offset: Number.NEGATIVE_INFINITY.element }
+      );
+    }
+  },
   dragAndDropUploader: () => {
     document.querySelectorAll(".drop-image__holder").forEach(inputElement => {
       const dropZoneElement = inputElement.closest(".drop-image");
 
       dropZoneElement.addEventListener("click", e => {
         inputElement.click();
-      })
+      });
 
       inputElement.addEventListener("change", e => {
         if (inputElement.files.length) {
           updateThumbnail(dropZoneElement, inputElement.files[0]);
         }
-      })
+      });
 
       dropZoneElement.addEventListener("dragover", e => {
         e.preventDefault();
@@ -109,11 +156,9 @@ const app = {
   },
 
   formValidation: () => {
-
     document
       .querySelectorAll(".form-group[data-error] .form-control")
-      .forEach((inputElement) => {
-
+      .forEach(inputElement => {
         if (inputElement.classList.contains("drop-image__holder")) {
           console.log(inputElement);
         }
@@ -122,13 +167,12 @@ const app = {
           inputElement.parentElement.removeAttribute("data-error")
         );
       });
-
   },
 
   dashboardInteractions: () => {
     let state = {
-      showSidebar: true,
-    }
+      showSidebar: true
+    };
 
     const { showSidebar } = state;
 
@@ -145,22 +189,19 @@ const app = {
       dashboard.classList.remove("shrink");
     }
 
-
     sidebarToggler.addEventListener("click", () => {
       state.showSidebar = !state.showSidebar;
       dashboardSidebar.classList.toggle("active");
       dashboard.classList.toggle("shrink");
-
     });
 
     // Sidebar Accordion List
     const accordionHeader = document.querySelector(".accordion-header");
-    accordionHeader.addEventListener("click", function (event) {
+    accordionHeader.addEventListener("click", function(event) {
       this.nextElementSibling.classList.toggle("active");
       this.classList.toggle("active");
     });
-  },
-
+  }
 };
 
 app.init();
