@@ -62,7 +62,7 @@ const app = {
       const dragable = document.querySelector(".dragging");
       const afterElement = getDragAfterElement(
         draggableItemsContainer,
-        e.clientX
+        e.clientY
       );
       if (afterElement == null) {
         draggableItemsContainer.appendChild(dragable);
@@ -70,9 +70,11 @@ const app = {
         draggableItemsContainer.insertBefore(dragable, afterElement);
       }
       draggableItemsContainer.appendChild(dragable);
+
+      console.log("From Script file : ", getImageIds().value);
     });
 
-    function getDragAfterElement(container, x) {
+    function getDragAfterElement(container, y) {
       const dragableElements = [
         ...container.querySelectorAll(".sortable-image:not(.dragging)")
       ];
@@ -80,8 +82,7 @@ const app = {
       dragableElements.reduce(
         (closest, child) => {
           const box = child.getBoundingClientRect();
-          const offset = x - box.left - box.width / 2;
-          console.log(offset);
+          const offset = y - box.bottom - (box.height / 2 );
           if (offset < 0 && offset > closest.offset) {
             return { offset, element: child };
           } else {

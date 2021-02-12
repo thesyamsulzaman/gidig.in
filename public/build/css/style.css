@@ -117,12 +117,19 @@ textarea {
   .form-group > .form-control[name="images[]"] {
     display: none; }
   .form-group > .sortable-images {
-    margin-top: .07em; }
+    margin-top: .7em; }
 
 .sortable-images {
   display: flex;
   flex-wrap: wrap;
   align-items: center; }
+  .sortable-images .sortable-image {
+    border: 4px solid #bbb;
+    padding: .5em; }
+    .sortable-images .sortable-image > img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover; }
   .sortable-images .sortable-image:not(.sortable-image:first-child) {
     margin-left: .9em; }
   .sortable-images .sortable-image.dragging {
@@ -173,6 +180,7 @@ textarea {
     overflow: hidden;
     background: #ccc;
     background-size: cover;
+    background-position: center;
     position: relative; }
   .drop-image__thumbnail::after {
     content: attr(data-label);
