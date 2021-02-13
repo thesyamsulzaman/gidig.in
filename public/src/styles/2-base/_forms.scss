@@ -67,9 +67,19 @@ textarea {
   align-items:center;
   //background: #111;
 
+
   & .sortable-image {
     border: 4px solid #bbb;
     padding: .5em;
+    position:relative;
+
+    &_delete {
+      position: absolute;
+      top: -5%;
+      right:-5%;
+      cursor: pointer;
+
+    }
 
     & > img {
       width: 150px;

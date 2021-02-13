@@ -63,7 +63,7 @@ $featuredIsChecked = ($this->product->featured === 1) ? "checked" : "" ;
   <div class="form-group drop-image" style="margin-bottom: .5em">
     <span class="drop-image__prompt">Drop atau Click untuk
       mengupload gambar produk</span>
-    <input type="file" name="images[]" class="form-control drop-image__holder"/>
+    <input type="file" multiple name="images[]" class="form-control drop-image__holder"/>
   </div>
  
 

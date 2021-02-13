@@ -12,14 +12,14 @@ use App\Models\Users;
 
 <section id="list-product" class="content-container">
 
-  <div class="alert show alert-success">
+<!--   <div class="alert show alert-success">
     <i class="fas fa-exclamation-circle"></i> 
     <span>Data Tersimpan</span>
     <div class="close-btn">
       <i class="fas fa-times"></i> 
     </div>
   </div>
-
+ -->
   <div class="content-header">
     <p class="">Konsumsi</p>
     <a href="<?= PROJECT_ROOT; ?>product/add" class="add-product-button btn btn-dark"> + Tambah Produk</a>
@@ -44,10 +44,20 @@ use App\Models\Users;
           <td data-th="Harga"><?= $product->price; ?></td>
           <td data-th="Ongkir"><?= $product->shipping; ?></td>
           <td data-th="Barang Sewaan">
-            <?= ($product->rentable === 1) ? "Ya" : "Tidak"; ?>
-          </td>
+
+            <?php if($product->rentable === 1): ?>
+              <i class="fas fa-check-circle"></i>
+            <?php else: ?>
+              <i class="fas fa-times-circle"></i>
+            <?php endif; ?>
+            
+         </td>
           <td data-id="<?= $product->id; ?>" data-th="Produk Unggulan">
-            <?= ($product->featured === 1) ? "Ya" : "Tidak"; ?>
+            <?php if($product->featured === 1): ?>
+              <i class="fas fa-check-circle"></i>
+            <?php else: ?>
+              <i class="fas fa-times-circle"></i>
+            <?php endif; ?>
           </td>
           <td data-th="Aksi">
             <a href="" onclick="toggleFeatured('<?= $product->id; ?>'); return false;">
@@ -87,9 +97,9 @@ use App\Models\Users;
       let tdElem = document.querySelector(`td[data-id='${data.product_id}']`);
 
       let featured = (data.is_featured) ? "fas fa-star" : "far fa-star" ;
-      let featuredStr = (data.is_featured) ? "Ya" : "Tidak" ;
+      let featuredStr = (data.is_featured) ? `<i class="fas fa-check-circle"></i>` : `<i class="fas fa-times-circle"></i>` ;
 
-      tdElem.innerText = featuredStr;
+      tdElem.innerHTML = featuredStr;
       starElem.className = featured;
     })
 

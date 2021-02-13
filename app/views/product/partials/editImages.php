@@ -10,6 +10,7 @@ use Core\FormHelpers;
   <div class="sortable-images">
 		<?php foreach ($this->images as $image) : ?>
 			<div class="sortable-image" draggable="true" id="image_<?= $image->id; ?>">
+       <i class="fas fa-times-circle sortable-image_delete" onclick="deleteImage(<?= $image->id; ?>);return 0;"></i>
 			 <img width="200" src="<?= PROJECT_ROOT . DS .  $image->url ?>">
 			</div>
 		<?php endforeach; ?>
@@ -18,24 +19,48 @@ use Core\FormHelpers;
 
 <script type="text/javascript" defer>
 
-	function getImageIds() {
+	function deleteImage(id) {
+		if (window.confirm("Apakah anda yakin ? ")) {
+
+      $data = new FormData();
+      $data.append("image_id", id);
+
+      fetch(`<?= PROJECT_ROOT; ?>product/deleteImage`, {
+        method: "POST",
+        mode: "same-origin",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body:JSON.stringify({ id })
+      })
+      .then(response => response.json())
+      .then(data => {
+      	console.log(document.querySelector(`#image_${id}`));
+      })
+    }
+	}
+
+	function setImageIds() {
 		const images = document.querySelectorAll(".sortable-image");
+		const imagesSorted = document.querySelector("#images_sorted");
 		const imageIds = [];
 
 		images.forEach(image => {
 			imageIds.push(image.id);
 		})
 
-		updateImageIds().value = imageIds;
+		imagesSorted.value = JSON.stringify(imageIds);
 
 		return imageIds;
 	}
 
-	function updateImageIds() {
+	function getImageIds() {
 		const imagesSorted = document.querySelector("#images_sorted");
-		// console.log(imagesSorted.value);
 		return imagesSorted;
 	}
+
+	setImageIds();
 
 	
 </script>

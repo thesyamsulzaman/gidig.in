@@ -24,7 +24,7 @@ class Products extends Model {
 		$conditions = [
 			"conditions" => "user_id = ? ",
 			"bind" => [(int)$user_id],
-			"order" => 'name'
+			"order" => 'created_at DESC'
 		];
 		$params = array_merge($params, $conditions);
 

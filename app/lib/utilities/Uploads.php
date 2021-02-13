@@ -20,14 +20,13 @@ class Uploads {
 	}
 
   public function runValidation() {
-  	if ($this->checkFile()) {
-			$msg = "File gambar wajib diupload";
-      $this->addErrorMessage("files", $msg);
-  	} else {
+  	// if ($this->checkFile()) {
+			// $msg = "File gambar wajib diupload";
+   //    $this->addErrorMessage("files", $msg);
+  	// } else {
 	    $this->validateImageType();
 	    $this->validateImageSize();
-
-  	}
+  	// }
   }
 
   public function upload($bucket, $name , $tmp_location) {
@@ -45,7 +44,7 @@ class Uploads {
     return $this->_files;
   }
 
-  public function checkFile() {
+  public function isEmpty() {
   	return ($this->_files[0]["tmp_name"] == "");
   }
 

@@ -125,7 +125,13 @@ textarea {
   align-items: center; }
   .sortable-images .sortable-image {
     border: 4px solid #bbb;
-    padding: .5em; }
+    padding: .5em;
+    position: relative; }
+    .sortable-images .sortable-image_delete {
+      position: absolute;
+      top: -5%;
+      right: -5%;
+      cursor: pointer; }
     .sortable-images .sortable-image > img {
       width: 150px;
       height: 150px;

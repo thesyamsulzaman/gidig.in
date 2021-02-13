@@ -11,6 +11,15 @@ class ProductImages extends Model {
   protected static $_softDelete = true;
 
 	public static function uploadProductImages($product_id, $uploads) {
+
+		$lastImage = self::findFirst([
+			'conditions' => "product_id = ?",
+			"bind" => [(int) $product_id],
+			'order' => 'sort DESC'
+		]);
+
+		$lastSort = (!$lastImage) ? 0 : $lastImage->sort;
+
 		$path = "uploads". DS ."product_images". DS ."product_" . $product_id . "/";
 		foreach ($uploads->getFiles() as $file) {
 			$parts = explode(".",$file['name']);
@@ -22,9 +31,26 @@ class ProductImages extends Model {
 			$image->url = $path . $uploadName;
 			$image->name = $uploadName;
 			$image->product_id = $product_id;
+			$image->sort = $lastSort;
       if($image->save()){
         $uploads->upload($path, $uploadName, $file['tmp_name']);
+        $lastSort++;
       }
+		}
+
+	}
+
+	public static deleteById($id) {
+		$image = self::findById($id);
+		$sort = $image->sort;
+		$afterImages = self::find([
+			'conditions' => "product_id = ? and sort > ?",
+			'bind' => [$image->product_id, $sort]
+		]);
+
+		foreach ($afterImages as $afterImage) {
+			$afterImage->sort = $afterImage->sort - 1;
+			$afterImage->save();
 		}
 
 	}
@@ -55,6 +81,20 @@ class ProductImages extends Model {
 		]);
 
 		return $images;
+	}
+
+	public static function updateSortByProductId($product_id, $sortOrder = []) {
+		$images = self::findByProductId($product_id);
+		$i = 0;
+		foreach ($images as $image) {
+			$val = 'image_' . $image->id;
+			$sort = (in_array($val, $sortOrder)) ? array_search($val, $sortOrder) : $i;
+			$image->sort = $sort;
+			$image->save();
+			$i++;
+		}
+
+
 
 
 	}

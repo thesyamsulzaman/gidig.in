@@ -54,7 +54,9 @@ const app = {
 
       draggableItem.addEventListener("dragend", e => {
         draggableItem.classList.remove("dragging");
+        console.log(getImageIds());
       });
+
     });
 
     draggableItemsContainer.addEventListener("dragover", e => {
@@ -66,12 +68,13 @@ const app = {
       );
       if (afterElement == null) {
         draggableItemsContainer.appendChild(dragable);
+        setImageIds();
       } else {
         draggableItemsContainer.insertBefore(dragable, afterElement);
+        setImageIds();
       }
       draggableItemsContainer.appendChild(dragable);
 
-      console.log("From Script file : ", getImageIds().value);
     });
 
     function getDragAfterElement(container, y) {

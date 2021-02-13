@@ -30,51 +30,62 @@ class ProductController extends Controller {
 		$this->view->render('product/category');
   }
 
-  public function editAction($id) {
-    $user = $this->currentUser;
-    $product = Products::findByIdAndUserId((int) $id, (int) $user->id);
-    $productImages = new ProductImages();
-
-    $images = ProductImages::findByProductId($id);
+  public function deleteImageAction() {
+    $response = ["success" => false, 'message' => "Terjadi kesalahan ..."];
     if ($this->request->isPost()) {
-
-      $this->request->csrfCheck();
-
-      $product->assign($this->request->get());
-
-      $product->isRentable($product->rentable());
-      $product->isFeatured($product->featured());
-      $product->user_id = $this->currentUser->id;
-
-
-      $product->validator();
-
-
-      $uploads = new Uploads($_FILES['images']);
-      $uploads->runValidation();
-      $imageErrors = $uploads->validates();
-
-      // $uploads = new Uploads($_FILES['images']);
-      // $uploads->runValidation();
-      // $imageErrors = $uploads->validates();
-      
-      // if (is_array($imageErrors)) {
-      //   $msg = '';
-      //   foreach ($imageErrors as $field => $message) {
-      //     $msg .= $message . "";
-      //   }
-      //   $product->addErrorMessage('images[]',  trim($msg));
-      // }
-
-
-
-      if ($product->save()) {
-        // $productImages::uploadProductImages($product->id, $uploads);
-        Router::redirect("product"); 
+      $user = $this->currentUser; 
+      $image_id = $this->request->getAjax("id");
+      $image = ProductImages::findById($image_id);
+      $product = Products::findByIdAndUserId($user->id, $image->id);
+      if ($product && $image) {
+        $ProductImages::deleteById($user->id, $image->id);
+        $response = ["success" => true, "message" => "Berhasi dihapus", "product_id" => $id];
       }
-
-
     }
+    return jsonResponse($response);
+
+  }
+
+  public function editAction($id) {
+    $user = Users::currentUser();
+    $product = Products::findByIdAndUserId((int)$id,$user->id);
+    if(!$product){
+      Router::redirect('product');
+    }
+    $images = ProductImages::findByProductId($product->id);
+    if($this->request->isPost()){
+      $this->request->csrfCheck();
+      $files = $_FILES['images'];
+      $isFiles = $files['tmp_name'][0] != '';
+      if($isFiles){
+        $uploads = new Uploads($files);
+        $uploads->runValidation();
+        $imagesErrors = $uploads->validates();
+        if(is_array($imagesErrors)){
+          $msg = "";
+          foreach($imagesErrors as $name => $message){
+            $msg .= $message . " ";
+          }
+          $product->addErrorMessage('images[]',trim($msg));
+        }
+      }
+      $product->assign($this->request->get(),Products::blackList);
+      $product->featured = ($this->request->get('featured') == 'on')? 1 : 0;
+      $product->user_id = $this->currentUser->id;
+      $product->save();
+
+      if($product->validationPassed()){
+        if($isFiles){
+          //upload images
+          ProductImages::uploadProductImages($product->id,$uploads);
+        }
+        $sortOrder = json_decode($_POST['images_sorted']);
+        ProductImages::updateSortByProductId($product->id,$sortOrder);
+        //redirect
+        Router::redirect('product');
+      }
+    }
+
 
     $this->view->images = $images;
     $this->view->product = $product;
@@ -106,25 +117,30 @@ class ProductController extends Controller {
 
 
       $uploads = new Uploads($_FILES['images']);
-      $uploads->runValidation();
-      $imageErrors = $uploads->validates();
+      $fileEmpty = $uploads->isEmpty();
 
+      if ($fileEmpty) {
+        $msg = "File gambar wajib diupload";
+        $product->addErrorMessage("images[]", $msg);
 
-      if (is_array($imageErrors)) {
-        $msg = '';
-        foreach ($imageErrors as $field => $message) {
-          $msg .= $message . "";
+      } else {
+        $uploads->runValidation();
+        $imageErrors = $uploads->validates();
+
+        if (is_array($imageErrors)) {
+          $msg = '';
+          foreach ($imageErrors as $field => $message) {
+            $msg .= $message . "";
+          }
+          $product->addErrorMessage('images[]',  trim($msg));
         }
-        $product->addErrorMessage('images[]',  trim($msg));
-      }
 
+      }
 
       if ($product->save()) {
         $productImages::uploadProductImages($product->id, $uploads);
         Router::redirect("product"); 
       }
-
-
     }
 
     $this->view->product = $product;
