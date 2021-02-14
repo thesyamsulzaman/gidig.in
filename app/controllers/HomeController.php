@@ -4,12 +4,16 @@
   use Core\Controller;
   use Core\Helpers;
 
+  use App\Models\Products;
+
   class HomeController extends Controller {
-    public function __construct($controller, $action) {
-      parent::__construct($controller, $action);
-    }
 
     public function indexAction() {
+
+      $ProductsModel = new Products();
+      $products = $ProductsModel->findAll();
+
+      $this->view->products = $products;
       $this->view->render('home/index');
     }
 

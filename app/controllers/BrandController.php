@@ -7,11 +7,13 @@ use Core\Router;
 use Core\Helpers;
 
 use App\Models\Brands;
+use App\Models\Users;
 
 class BrandController extends Controller {
 
 	public function onConstruct() {
 		$this->view->setLayout('admin');
+		$this->currentUser = Users::currentUser();
 	}
 
 	public function indexAction() {
@@ -37,6 +39,7 @@ class BrandController extends Controller {
 		if ($this->request->isPost()) {
       $this->request->csrfCheck();
 			$brand->assign($this->request->get());
+			$brand->user_id = $this->currentUser->id;
 			$brand->save();
 			Router::redirect("brand");
 		}
@@ -51,6 +54,7 @@ class BrandController extends Controller {
 
 		if ($this->request->isPost()) {
 			$brand->assign($this->request->get());
+			$brand->user_id = $this->currentUser->id;
 			$brand->validator();
 
 			if($brand->save()) {

@@ -10,7 +10,7 @@ use Core\Validators\MatchesValidator;
 
 class Products extends Model {
 
-	public $id, $user_id, $name, $price, $category ,$shipping, $description, $featured = 0,$rentable = 0, $deleted = 0, $created_at, $updated_at;
+	public $id, $user_id, $name, $price, $category, $shipping, $brand_id, $description, $featured = 0,$rentable = 0, $deleted = 0, $created_at, $updated_at;
   const blackList = ['id','deleted'];
   protected static $_table = 'products';
   protected static $_softDelete = true;
@@ -50,6 +50,27 @@ class Products extends Model {
 			$this->runValidation(new MatchesValidator($this, ['field' => 'category', 'rule' => 'konsumsi', 'message' => "Hanya bisa diisi oleh konsumsi"]));
 		}
 
+	}
+
+	public function findAll($category = "") {
+    // return Products::find([
+    //   'conditions' => 'featured = 1'
+    // ]);
+
+    $sql = '
+    	SELECT 
+    		products.*, product_images.url
+    	FROM 
+    		products
+    	JOIN
+    		product_images ON products.id = product_images.product_id
+    	WHERE
+    		products.featured = 1 AND products.deleted = 0 AND product_images.sort = 0
+    	GROUP BY
+    		product_images.product_id';
+
+    
+    return $this->query($sql)->results();
 	}
 
 	public static function findByIdAndUserId($id, $user_id) {

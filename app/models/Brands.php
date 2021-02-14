@@ -22,6 +22,34 @@ class Brands extends Model {
 		$this->runValidation(new UniqueValidator($this, [ 'field' => ['name', 'deleted'], 'message' => 'Merek sudah ada']));
 	}
 
+	public static function findByUserIdAndId($user_id, $id) {
+		return self::findFirst([
+			'conditions' => "user_id = ? and id = ?",
+			'bind' => [$user_id, $id]
+		]);
+	}
+
+	public static function getBrandsForForm($user_id) {
+		$brands = self::find([
+			'columns' => 'id, name',
+			'conditions' => "user_id = ?",
+			'bind' => [$user_id],
+			'order' => 'name DESC'
+		]);
+
+		$brandsArray = ['' => "* Pilih Brand *"]; 
+
+		foreach ($brands as $brand) {
+			$brandsArray[$brand->id] = $brand->name;
+		}
+
+		return $brandsArray;
+
+
+	}
+
+
+
 	
 
 

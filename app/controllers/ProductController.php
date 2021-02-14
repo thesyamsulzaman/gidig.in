@@ -9,6 +9,7 @@ use Core\Router;
 use App\Models\Products;
 use App\Models\ProductImages;
 use App\Models\Users;
+use App\Models\Brands;
 
 use App\Lib\Utilities\Uploads;
 
@@ -52,6 +53,7 @@ class ProductController extends Controller {
     if(!$product){
       Router::redirect('product');
     }
+    $brands = Brands::getBrandsForForm($user->id);
     $images = ProductImages::findByProductId($product->id);
     if($this->request->isPost()){
       $this->request->csrfCheck();
@@ -73,6 +75,7 @@ class ProductController extends Controller {
       $product->isRentable($product->rentable());
       $product->isFeatured($product->featured());
       $product->user_id = $this->currentUser->id;
+      $product->brand_id = $this->request->get('brand');
       $product->save();
 
       if($product->validationPassed()){
@@ -89,6 +92,7 @@ class ProductController extends Controller {
 
 
     $this->view->images = $images;
+    $this->view->brands = $brands;
     $this->view->product = $product;
     $this->view->formAction = PROJECT_ROOT . 'product' . DS . 'edit' . DS . $id;
     $this->view->displayErrors = $product->getErrorMessages();
@@ -101,6 +105,7 @@ class ProductController extends Controller {
 
     $product = new Products();
     $productImages = new ProductImages();
+    $brands = Brands::getBrandsForForm($this->currentUser->id);
 
     if ($this->request->isPost()) {
 
@@ -112,6 +117,7 @@ class ProductController extends Controller {
       $product->isRentable($product->rentable());
       $product->isFeatured($product->featured());
       $product->user_id = $this->currentUser->id;
+      $product->brand_id = $this->request->get('brand');
 
 
       $product->validator();
@@ -145,6 +151,7 @@ class ProductController extends Controller {
     }
 
     $this->view->product = $product;
+    $this->view->brands = $brands;
     $this->view->productImages = $productImages;
     $this->view->displayErrors = $product->getErrorMessages();
     $this->view->formAction = PROJECT_ROOT . 'product' . DS . 'add';

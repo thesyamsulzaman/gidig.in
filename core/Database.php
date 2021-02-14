@@ -172,74 +172,70 @@ class Database {
 
 	}
 
-	protected function _read($table, $params = [], $class = []) {
-		$conditionString = '';
-		$bind = [];
-		$order = '';
-		$limit = '';
-		$joins = '';
+  protected function _read($table, $params=[],$class) {
+    $columns = '*';
+    $joins = "";
+    $conditionString = '';
+    $bind = [];
+    $order = '';
+    $limit = '';
+    $offset = '';
 
-		// $db->find(
-		// 	"student", [
-    //        "conditions" => ["major LIKE ?", "name LIKE ?"],
-	  //        "bind" => ['%'."Science".'%'],
-	  //      ]
-	  //  );	
+    // conditions
+    if(isset($params['conditions'])) {
+      if(is_array($params['conditions'])) {
+        foreach($params['conditions'] as $condition) {
+          $conditionString .= ' ' . $condition . ' AND';
+        }
+        $conditionString = trim($conditionString);
+        $conditionString = rtrim($conditionString, ' AND');
+      } else {
+        $conditionString = $params['conditions'];
+      }
+      if($conditionString != '') {
+        $conditionString = ' Where ' . $conditionString;
+      }
+    }
 
-		// condition
-		// check if we have the the params array with "conditions" as key
-		if (isset($params['conditions'])) {
-	   	// check if the conditions is an array
-			if (is_array($params['conditions'])) {
-				foreach ($params['conditions'] as $condition) {
-					$conditionString .= ' ' . $condition . ' AND ';
-					// conditionString = 'major LIKE ? AND name LIKE ? AND'
-				}
-				$conditionString = trim($conditionString);
-				// conditionString = 'major LIKE ? AND name LIKE ? AND'
-				$conditionString = rtrim($conditionString, ' AND');
-				// conditionString = 'major LIKE ? AND name LIKE ?'
+    // columns
+    if(array_key_exists('columns',$params)){
+      $columns = $params['columns'];
+    }
 
-			} else {
-				// if the $params array is not an array;
-			  $conditionString = $params["conditions"];
-				// conditionString = 'major LIKE ?'
-		  } 
+    if(array_key_exists('joins',$params)){
+      foreach($params['joins'] as $join){
+        $joins .= $this->_buildJoin($join);
+      }
+      $joins .= " ";
+    }
 
-		  if ($conditionString != '') {
-		  	// if the conditionString is not empty
-   		  $conditionString = ' WHERE '.$conditionString;
-				// conditionString = 'WHERE major LIKE ?'
-		  }
-		}
+    // bind
+    if(array_key_exists('bind', $params)) {
+      $bind = $params['bind'];
+    }
 
-		// binding
-		if (array_key_exists('bind', $params)) {
-			// check if we have the array with the key of bind
-			$bind = $params['bind'];
-		}
+    // order
+    if(array_key_exists('order', $params)) {
+      $order = ' ORDER BY ' . $params['order'];
+    }
 
-		// order
-		if (array_key_exists('order', $params)) {
-			// check if we have the array with the key of order
-			$order = ' ORDER BY '. $params['order'];
-		}
+    // limit
+    if(array_key_exists('limit', $params)) {
+      $limit = ' LIMIT ' . $params['limit'];
+    }
 
-		// limit 
-		if (array_key_exists('limit', $params)) {
-			// check if we have the array with the key of limit
-			$limit = ' LIMIT '. $params['limit'];
-		}
+    // offset
+    if(array_key_exists('offset', $params)) {
+      $offset = ' OFFSET ' . $params['offset'];
+    }
 
-		$sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
-		// sql = SELECT * FROM student WHERE major LIKE ? AND name LIKE ?
-
-
-		if ($this->query($sql, $bind, $class)) {
-			if (!count($this->_result)) return false;
-			return true;
-		}
-	}
+    $sql = "SELECT {$columns} FROM {$table}{$joins}{$conditionString}{$order}{$limit}{$offset}";
+    if($this->query($sql, $bind,$class)) {
+      if(!count($this->_result)) return false;
+      return true;
+    }
+    return false;
+  }
 
 	public function find($table, $params = [], $class = false ) {
 		if ($this->_read($table, $params, $class)) {
@@ -257,7 +253,15 @@ class Database {
 	}
 
 
-  // Migrations
+  // Join
+  protected function _buildJoin($join=[]){
+    $table = $join[0];
+    $condition = $join[1];
+    $alias = $join[2];
+    $type = (isset($join[3]))? strtoupper($join[3]) : "INNER";
+    $jString = "{$type} JOIN {$table} {$alias} ON {$condition}";
+    return " " . $jString;
+  }
 
 
   // Getter

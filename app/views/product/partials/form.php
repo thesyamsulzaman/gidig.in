@@ -21,6 +21,15 @@ $featuredIsChecked = ($this->product->featured === 1) ? "checked" : "" ;
     <input id="name" name="name" value="<?= $this->product->name; ?>" class="form-control" type="text">
   </div>
 
+    <div class="form-group">
+      <label for="brand">Brand Produk</label>
+      <select id="brand" name="brand" class="form-control">
+        <?php foreach ($this->brands as $key => $value) { ?>
+          <option value="<?= $key; ?>" <?= ($key === $this->product->brand_id) ? "selected" : "" ?> > <?= $value; ?></option>
+        <?php } ?>
+      </select>
+    </div>
+
   <div class="form-group" style="display:flex; align-items: flex-start;">
     <div>
       <input name="rentable" <?= $rentableIsChecked; ?> type="checkbox" class="form-control"/>

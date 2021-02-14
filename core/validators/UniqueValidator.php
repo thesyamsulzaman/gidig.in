@@ -21,6 +21,7 @@ class UniqueValidator extends CustomValidator {
 			$conditions[] = "id = ?";
 			$bind[] = $this->_model->id;
 		}
+		
 		// this allows you to check multiple field
 		if (is_array($this->field)) {
 			array_unshift($this->field);

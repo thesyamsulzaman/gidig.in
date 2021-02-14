@@ -7,7 +7,7 @@
 <section id="list-brands" class="content-container">
   <div class="content-header">
     <p class="">Brands</p>
-    <a href="<?= PROJECT_ROOT; ?>brand/add" class="add-product-button btn btn-dark"> + Tambah Produk</a>
+    <a href="<?= PROJECT_ROOT; ?>brand/add" class="add-product-button btn btn-dark"> + Tambah Data Brand</a>
   </div>
   <div class="content-table card shadow">
     <div class="table-header">
