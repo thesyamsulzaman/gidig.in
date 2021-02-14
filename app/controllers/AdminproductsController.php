@@ -14,7 +14,7 @@ use App\Models\Brands;
 use App\Lib\Utilities\Uploads;
 
 
-class ProductController extends Controller {
+class AdminProductsController extends Controller {
 
   public function onConstruct() {
 		$this->view->setLayout('admin');
@@ -23,35 +23,20 @@ class ProductController extends Controller {
 
 	public function indexAction() {
     $this->view->products = Products::findByUserId($this->currentUser->id);
-		$this->view->render('product/index');
+		$this->view->render('admin_products/index');
 	}
 
   public function categoryAction($category = "") {
     $this->view->category = $category;
-		$this->view->render('product/category');
+		$this->view->render('admin_products/category');
   }
 
-  public function deleteImageAction() {
-    $response = ["success" => false, 'message' => "Terjadi kesalahan ..."];
-    if ($this->request->isPost()) {
-      $user = $this->currentUser; 
-      $image_id = $this->request->getAjax("id");
-      $image = ProductImages::findById($image_id);
-      $product = Products::findByIdAndUserId($image->product_id,$user->id);
-      if ($product && $image) {
-        ProductImages::deleteById($image->id);
-        $response = ["success" => true, "message" => "Berhasi dihapus", "image_id" => $image->id];
-      }
-    }
-    return $this->jsonResponse($response);
-
-  }
 
   public function editAction($id) {
     $user = Users::currentUser();
     $product = Products::findByIdAndUserId((int)$id,$user->id);
     if(!$product){
-      Router::redirect('product');
+      Router::redirect('adminproducts');
     }
     $brands = Brands::getBrandsForForm($user->id);
     $images = ProductImages::findByProductId($product->id);
@@ -86,7 +71,7 @@ class ProductController extends Controller {
         $sortOrder = json_decode($_POST['images_sorted']);
         ProductImages::updateSortByProductId($product->id,$sortOrder);
         //redirect
-        Router::redirect('product');
+        Router::redirect('adminproducts');
       }
     }
 
@@ -94,10 +79,9 @@ class ProductController extends Controller {
     $this->view->images = $images;
     $this->view->brands = $brands;
     $this->view->product = $product;
-    $this->view->formAction = PROJECT_ROOT . 'product' . DS . 'edit' . DS . $id;
+    $this->view->formAction = PROJECT_ROOT . 'adminproducts' . DS . 'edit' . DS . $id;
     $this->view->displayErrors = $product->getErrorMessages();
-    $this->view->render('product/edit');
-
+    $this->view->render('admin_products/edit');
 
   }
 
@@ -146,7 +130,7 @@ class ProductController extends Controller {
 
       if ($product->save()) {
         $productImages::uploadProductImages($product->id, $uploads);
-        Router::redirect("product"); 
+        Router::redirect("adminproducts"); 
       }
     }
 
@@ -154,9 +138,31 @@ class ProductController extends Controller {
     $this->view->brands = $brands;
     $this->view->productImages = $productImages;
     $this->view->displayErrors = $product->getErrorMessages();
-    $this->view->formAction = PROJECT_ROOT . 'product' . DS . 'add';
-    $this->view->render('product/add');
+    $this->view->formAction = PROJECT_ROOT . 'adminproducts' . DS . 'add';
+    $this->view->render('adminproducts/add');
   }
+
+
+  public function deleteImageAction() {
+    $response = ["success" => false, 'message' => "Terjadi kesalahan ..."];
+    if ($this->request->isPost()) {
+      $user = $this->currentUser; 
+      $image_id = $this->request->getAjax("id");
+      $image = ProductImages::findById($image_id);
+      $product = Products::findByIdAndUserId($image->product_id,$user->id);
+      if ($product && $image) {
+        ProductImages::deleteById($image->id);
+        $response = ["success" => true, "message" => "Berhasi dihapus", "image_id" => $image->id];
+      }
+    }
+    return $this->jsonResponse($response);
+
+  }
+
+
+
+  
+
 
 
   public function deleteAction() { 
@@ -200,10 +206,3 @@ class ProductController extends Controller {
   
 }
 
-
-
-
-
-
-
- ?>

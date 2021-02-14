@@ -7,7 +7,7 @@
 <section id="list-brands" class="content-container">
   <div class="content-header">
     <p class="">Brands</p>
-    <a href="<?= PROJECT_ROOT; ?>brand/add" class="add-product-button btn btn-dark"> + Tambah Data Brand</a>
+    <a href="<?= PROJECT_ROOT; ?>adminbrands/add" class="add-product-button btn btn-dark"> + Tambah Data Brand</a>
   </div>
   <div class="content-table card shadow">
     <div class="table-header">
@@ -25,7 +25,7 @@
           <td data-th="Nama"><?= $brand->id; ?></td>
           <td data-th="Nama"><?= $brand->name; ?></td>
           <td data-th="Aksi">
-            <a href="<?= PROJECT_ROOT; ?>brand/edit/<?= $brand->id; ?>">
+            <a href="<?= PROJECT_ROOT; ?>adminbrands/edit/<?= $brand->id; ?>">
               <i class="fas fa-edit"></i>
             </a>
             <a href="#" onclick="deleteProduct('<?= $brand->id; ?>'); return false;">
@@ -47,7 +47,7 @@
       $data = new FormData();
       $data.append("id", id);
 
-      fetch(`<?= PROJECT_ROOT; ?>brand/deleteBrand`, {
+      fetch(`<?= PROJECT_ROOT; ?>adminbrands/deleteBrand`, {
         method: "POST",
         mode: "same-origin",
         credentials: "same-origin",

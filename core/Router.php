@@ -135,6 +135,7 @@
         $uArray = explode(DS, $value);
         $controller_name = ucwords($uArray[0]);
         $action_name = (isset($uArray[1])) ? $uArray[1] : "";
+
         if (self::hasAccess($controller_name, $action_name)) {
           return PROJECT_ROOT . $value;
         } 

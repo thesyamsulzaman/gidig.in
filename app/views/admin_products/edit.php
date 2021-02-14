@@ -80,7 +80,7 @@ $featuredIsChecked = ($this->product->featured === 1) ? "checked" : "" ;
       <textarea name="description" id="deskripsi" class="form-control"><?= $this->product->description; ?></textarea>
     </div>
 
-      <?php $this->partial('product','editImages') ?>
+      <?php $this->partial('admin_products','editImages') ?>
 
     <div class="form-group drop-image" style="margin-bottom: .5em">
       <span class="drop-image__prompt">Drop atau Click untuk

@@ -4,7 +4,8 @@
     "Home": ["*"],
     "Register": ["login", "register", "detail"],
     "User": ["login", "register", "detail"],
-    "Restricted": ["*"]
+    "Restricted": ["*"],
+    "Products": ["*"]
   },
   "LoggedIn": {
     "denied": {
@@ -17,7 +18,7 @@
   "SuperAdmin": {
     "denied": {},
     "Admin": ["*"],
-    "Product": ["*"],
-    "Brand": ["*"]
+    "Adminbrands": ["*"],
+    "Adminproducts": ["*"]
   }
 }

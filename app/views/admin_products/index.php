@@ -63,7 +63,7 @@ use App\Models\Users;
             <a href="" onclick="toggleFeatured('<?= $product->id; ?>'); return false;">
               <i data-id="<?= $product->id; ?>" class="<?= ($product->featured === 1) ? "fas fa-star" : "far fa-star"; ?>"></i>
             </a>
-            <a href="<?= PROJECT_ROOT; ?>product/edit/<?= $product->id; ?>">
+            <a href="<?= PROJECT_ROOT; ?>adminproducts/edit/<?= $product->id; ?>">
               <i class="fas fa-edit"></i>
             </a>
             <a href="#" onclick="deleteProduct('<?= $product->id; ?>'); return false;">
@@ -82,7 +82,7 @@ use App\Models\Users;
 <script type="text/javascript" defer>
 
   function toggleFeatured(id) {
-    fetch(`<?= PROJECT_ROOT; ?>product/toggleFeatured`, {
+    fetch(`<?= PROJECT_ROOT; ?>adminproducts/toggleFeatured`, {
       method: "POST",
       mode: "same-origin",
       credentials: "same-origin",
@@ -112,7 +112,7 @@ use App\Models\Users;
       $data = new FormData();
       $data.append("id", id);
 
-      fetch(`<?= PROJECT_ROOT; ?>product/delete`, {
+      fetch(`<?= PROJECT_ROOT; ?>adminproducts/delete`, {
         method: "POST",
         mode: "same-origin",
         credentials: "same-origin",

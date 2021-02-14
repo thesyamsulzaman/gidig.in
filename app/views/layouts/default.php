@@ -10,6 +10,7 @@ use Core\Session;
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" type="text/css" href="<?= STATIC_FILES; ?>build/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= STATIC_FILES; ?>build/css/all.css">
 
     <title>GIDIG.IN | Travel Service On Your Pocket </title>
   </head>

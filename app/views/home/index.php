@@ -24,7 +24,7 @@ use App\Models\Users;
         <span class="badge badge-dark product-card-category">
           <?= $product->category; ?>
         </span>
-        <a href="<?= PROJECT_ROOT; ?>details/<?= $product->id; ?>" class="product-card-detail-title"><?= $product->name; ?></a>
+        <a href="<?= PROJECT_ROOT; ?>products/detail/<?= $product->id; ?>" class="product-card-detail-title"><?= $product->name; ?></a>
         <div class="product-card-detail-pricing">
           <span class="product-price">Rp. <?= $product->price; ?></span> 
           <?php if($product->rentable === 1): ?>
@@ -40,8 +40,6 @@ use App\Models\Users;
 
   </div>
 </section>
-
-
 
 
 <?php $this->end(); ?>

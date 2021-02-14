@@ -25,7 +25,7 @@ use Core\FormHelpers;
       $data = new FormData();
       $data.append("image_id", id);
 
-      fetch(`<?= PROJECT_ROOT; ?>product/deleteImage`, {
+      fetch(`<?= PROJECT_ROOT; ?>adminproducts/deleteImage`, {
         method: "POST",
         mode: "same-origin",
         credentials: "same-origin",
