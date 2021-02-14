@@ -40,19 +40,20 @@ class ProductImages extends Model {
 
 	}
 
-	public static deleteById($id) {
-		$image = self::findById($id);
+	public static function deletebyid($id) {
+		$image = self::findbyid($id);
 		$sort = $image->sort;
-		$afterImages = self::find([
+		$afterimages = self::find([
 			'conditions' => "product_id = ? and sort > ?",
 			'bind' => [$image->product_id, $sort]
 		]);
 
-		foreach ($afterImages as $afterImage) {
-			$afterImage->sort = $afterImage->sort - 1;
-			$afterImage->save();
+		foreach ($afterimages as $afterimage) {
+			$afterimage->sort = $afterimage->sort - 1;
+			$afterimage->save();
 		}
-
+		unlink(UPLOADS_DIR . 'uploads' . DS . 'product_images' . DS . 'product_' . $image->product_id . DS . $image->name);
+		return $image->delete();
 	}
 
 	public static function deleteImages($product_id, $unlink = false) {
@@ -66,7 +67,7 @@ class ProductImages extends Model {
     }
     
     if($unlink){
-      $dirname = ROOT.DS.'uploads' . DS . 'product_images' . DS . 'product_' . $product_id;
+      $dirname = UPLOADS_DIR . $bucket . $name. DS .'uploads' . DS . 'product_images' . DS . 'product_' . $product_id;
       array_map('unlink', glob("$dirname/*.*"));
       rmdir($dirname);
     }
@@ -93,8 +94,6 @@ class ProductImages extends Model {
 			$image->save();
 			$i++;
 		}
-
-
 
 
 	}

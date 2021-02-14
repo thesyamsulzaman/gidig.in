@@ -31,10 +31,14 @@ const app = {
         app.dragAndDropUploader();
         console.log("Component Loaded");
         break;
+      case "edit-brand":
+      case "add-brand":
+        app.formValidation();
       default:
         console.log("Log out something else");
     }
   },
+
 
   alert: () => {
     document.querySelector(".close-btn").addEventListener("click", function(e) {
@@ -54,7 +58,6 @@ const app = {
 
       draggableItem.addEventListener("dragend", e => {
         draggableItem.classList.remove("dragging");
-        console.log(getImageIds());
       });
 
     });

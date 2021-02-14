@@ -36,13 +36,13 @@ class ProductController extends Controller {
       $user = $this->currentUser; 
       $image_id = $this->request->getAjax("id");
       $image = ProductImages::findById($image_id);
-      $product = Products::findByIdAndUserId($user->id, $image->id);
+      $product = Products::findByIdAndUserId($image->product_id,$user->id);
       if ($product && $image) {
-        $ProductImages::deleteById($user->id, $image->id);
-        $response = ["success" => true, "message" => "Berhasi dihapus", "product_id" => $id];
+        ProductImages::deleteById($image->id);
+        $response = ["success" => true, "message" => "Berhasi dihapus", "image_id" => $image->id];
       }
     }
-    return jsonResponse($response);
+    return $this->jsonResponse($response);
 
   }
 
@@ -70,7 +70,8 @@ class ProductController extends Controller {
         }
       }
       $product->assign($this->request->get(),Products::blackList);
-      $product->featured = ($this->request->get('featured') == 'on')? 1 : 0;
+      $product->isRentable($product->rentable());
+      $product->isFeatured($product->featured());
       $product->user_id = $this->currentUser->id;
       $product->save();
 

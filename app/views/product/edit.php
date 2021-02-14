@@ -29,13 +29,6 @@ $categories = [
   <div class="content-form card shadow">
     <form action="<?= $this->formAction; ?>" method="POST" enctype="multipart/form-data">
 
-      <div class="form-group">
-        <input type="hidden" name="images_sorted" id="images_sorted" value="['Nasi', 'Goreng']">
-      </div>
-
-      <div class="form-group">
-         <?= FormHelpers::csrf_input(); ?>
-      </div>
       
       <div class="form-group">
         <label for="name">Nama Produk</label>
@@ -89,6 +82,14 @@ $categories = [
 
       <div class="form-group">
         <input class="btn btn-lg btn-block btn-dark" type="submit" value="Simpan"/>
+      </div>
+      
+      <div class="form-group">
+        <input type="hidden" name="images_sorted" id="images_sorted" value="['Nasi', 'Goreng']">
+      </div>
+
+      <div class="form-group">
+         <?= FormHelpers::csrf_input(); ?>
       </div>
 
 

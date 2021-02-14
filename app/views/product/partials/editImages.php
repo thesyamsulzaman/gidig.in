@@ -36,7 +36,8 @@ use Core\FormHelpers;
       })
       .then(response => response.json())
       .then(data => {
-      	console.log(document.querySelector(`#image_${id}`));
+      	document.querySelector(`#image_${id}`).remove();
+      	setImageIds();
       })
     }
 	}

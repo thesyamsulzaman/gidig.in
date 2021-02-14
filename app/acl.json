@@ -17,6 +17,7 @@
   "SuperAdmin": {
     "denied": {},
     "Admin": ["*"],
-    "Product": ["*"]
+    "Product": ["*"],
+    "Brand": ["*"]
   }
 }
