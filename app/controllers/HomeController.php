@@ -17,17 +17,6 @@
       $this->view->render('home/index');
     }
 
-    public function apiAction() {
-    	$response = [
-    		'success' => true,
-    		'data' => [
-    			'username' => "DennisReynolds",
-    			'token' => 'jg63hvdjg73384952h493g',
-    			'address' => 'Paddys Pub'
-    		]
-    	];
-    	$this->jsonResponse($response);
-    }
 
 
   }
