@@ -31,7 +31,9 @@ use App\Models\Users;
           	<span class="product-daily-cost">/ Hari</span>
           <?php endif; ?>
         </div>
-        <button class="btn btn-lg btn-block btn-dark product-card-button">+ Keranjang</button>
+        <button class="btn btn-lg btn-block btn-dark product-card-button">
+          <i class="fas fa-cart-plus"></i>
+        </button>
       </div>
     </div>
 

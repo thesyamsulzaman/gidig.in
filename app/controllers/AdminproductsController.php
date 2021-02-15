@@ -56,11 +56,15 @@ class AdminProductsController extends Controller {
           $product->addErrorMessage('images[]',trim($msg));
         }
       }
+
       $product->assign($this->request->get(),Products::blackList);
       $product->isRentable($product->rentable());
       $product->isFeatured($product->featured());
+
+      $product->description = trim($product->description);
       $product->user_id = $this->currentUser->id;
-      $product->brand_id = $this->request->get('brand');
+      $product->brand_id = (int) $this->request->get('brand');
+      
       $product->save();
 
       if($product->validationPassed()){
@@ -139,7 +143,7 @@ class AdminProductsController extends Controller {
     $this->view->productImages = $productImages;
     $this->view->displayErrors = $product->getErrorMessages();
     $this->view->formAction = PROJECT_ROOT . 'adminproducts' . DS . 'add';
-    $this->view->render('adminproducts/add');
+    $this->view->render('admin_products/add');
   }
 
 

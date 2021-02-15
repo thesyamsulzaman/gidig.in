@@ -37,7 +37,7 @@ class Brands extends Model {
 			'order' => 'name DESC'
 		]);
 
-		$brandsArray = ['' => "* Pilih Brand *"]; 
+		$brandsArray = [ 0 => "* Pilih Brand *"]; 
 
 		foreach ($brands as $brand) {
 			$brandsArray[$brand->id] = $brand->name;

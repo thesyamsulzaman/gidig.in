@@ -5,7 +5,8 @@
     "Register": ["login", "register", "detail"],
     "User": ["login", "register", "detail"],
     "Restricted": ["*"],
-    "Products": ["*"]
+    "Products": ["*"],
+    "Cart": ["*"]
   },
   "LoggedIn": {
     "denied": {

@@ -8,6 +8,9 @@ use Core\FormHelpers;
 use Core\Validators\RequiredValidator;
 use Core\Validators\MatchesValidator;
 
+use App\Models\Brands;
+use App\Models\ProductImages;
+
 class Products extends Model {
 
 	public $id, $user_id, $name, $price, $category, $shipping, $brand_id, $description, $featured = 0,$rentable = 0, $deleted = 0, $created_at, $updated_at;
@@ -53,10 +56,6 @@ class Products extends Model {
 	}
 
 	public function findAll($category = "") {
-    // return Products::find([
-    //   'conditions' => 'featured = 1'
-    // ]);
-
     $sql = '
     	SELECT 
     		products.*, product_images.url
@@ -79,6 +78,26 @@ class Products extends Model {
 			'bind' => [ (int) $user_id, (int) $id ]
 		];
 		return self::findFirst($conditions);
+	}
+
+	public function getBrandName() {
+		if (empty($this->brand_id)) return '';
+		$brand = Brands::findFirst([
+			'conditions' => "id = ?",
+			'bind' => [$this->brand_id]
+		]);
+
+		return ($brand) ? $brand->name : '';
+
+	}
+
+	public function getImages() {
+		return ProductImages::find([
+			'conditions' => "product_id = ?",
+			'bind' => [$this->id],
+			'order' => 'sort ASC'
+		]);
+
 	}
 
   public function beforeSave(){

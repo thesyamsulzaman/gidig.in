@@ -27,10 +27,11 @@ class ProductsController extends Controller {
 	}
 
   public function detailAction($id) {
-    $this->view->product = Products::find([
-      'conditions' => 'id = ?',
-      'bind' => [(int) $id]
-    ]);
+    $product = Products::findById($id);
+    if (!$product) Router::redirect("");
+
+    $this->view->product = $product;
+    $this->view->images = $product->getImages();
     $this->view->render('products/detail');
   }
 

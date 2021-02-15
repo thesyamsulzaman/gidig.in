@@ -22,7 +22,7 @@ use App\Models\Users;
  -->
   <div class="content-header">
     <p class="">Konsumsi</p>
-    <a href="<?= PROJECT_ROOT; ?>product/add" class="add-product-button btn btn-dark"> + Tambah Produk</a>
+    <a href="<?= PROJECT_ROOT; ?>adminproducts/add" class="add-product-button btn btn-dark"> + Tambah Produk</a>
   </div>
   <div class="content-table card shadow">
     <div class="table-header">

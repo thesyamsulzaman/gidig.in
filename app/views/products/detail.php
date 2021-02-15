@@ -1,5 +1,13 @@
+<?php $this->setSiteTitle($this->product->name); ?>
 <?php $this->start('head'); ?>
 <?php $this->end(); ?>
+
+<?php 
+
+use Core\Helpers;
+
+
+?>
 
 <?php $this->start('body'); ?>
     <section id="products">
@@ -14,17 +22,18 @@
 
         <div class="product-detail">
           <div class="product-detail-images">
-            <img class="product-detail-img" src="./images/images (1).jpeg" alt="">
+            <img class="product-detail-img" src="<?= PROJECT_ROOT . $this->images[0]->url; ?>" alt="">
             <div class="product-detail-sub-images">
-              <img class="product-detail-sub-image sub-image-active" alt="" src="./images/images (1).jpeg">
-              <img class="product-detail-sub-image" alt="" src="./images/images (3).jpeg">
-              <img class="product-detail-sub-image" alt="" src="./images/images (4).jpeg">
+              <?php foreach($this->images as $image): ?>
+               <img class="product-detail-sub-image" alt="" src="<?= PROJECT_ROOT . $image->url; ?>">
+              <?php endforeach; ?>
             </div>
           </div>
 
           <div class="product-detail-info">
-            <h1 class="product-detail-title">Mie Goreng Capcay</h1>
-            <p class="product-detail-price">Rp 18.000</p>
+            <h1 class="product-detail-title"><?= $this->product->name; ?></h1>
+            <span><?= $this->product->getBrandName(); ?></span>
+            <p class="product-detail-price">Rp. <?= $this->product->price; ?></p>
 
 
             <div class="product-detail-description">
@@ -32,9 +41,7 @@
                 Deskripsi Produk
               </span>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                <?= $this->product->description ?>
               </p>
             </div>
 
@@ -49,7 +56,10 @@
                   <img src="./icons/plus-square.svg" alt="">
                 </button>
               </div>
-              <button class="btn btn-lg btn-block btn-dark">Add to cart</button>
+              <button class="btn btn-lg btn-block btn-dark">
+                <i class="fas fa-cart-plus"></i>
+                Add to cart
+              </button>
 
             </div>
 

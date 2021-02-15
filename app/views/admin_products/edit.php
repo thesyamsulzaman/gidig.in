@@ -21,7 +21,7 @@ $featuredIsChecked = ($this->product->featured === 1) ? "checked" : "" ;
 
  <section id="edit-product" class="content-container">
   <div class="navigator">
-    <a href="<?= PROJECT_ROOT; ?>product" class="">
+    <a href="<?= PROJECT_ROOT; ?>adminproducts" class="">
     <i class="fas fa-arrow-left"></i>
     Kembali
 	</a>
