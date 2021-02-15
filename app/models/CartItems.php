@@ -31,7 +31,7 @@ class CartItems extends Model {
 			$item = new self();
 			$item->cart_id = $cart_id;
 			$item->product_id = $product_id;
-			$item->save();
+      $item->save();
 		}
 
 

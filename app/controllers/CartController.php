@@ -12,13 +12,17 @@
   class CartController extends Controller {
 
     public function indexAction() {
+      $cart_id = Cookie::get(CART_COOKIE_NAME);
+      $items = Carts::findAllItemsByCartId((int)$cart_id);
+      Helpers::dnd($items);
       $this->view->render('carts/index');
     }
 
     public function addToCartAction($product_id) {
       $cart = Carts::findCurrentCartOrCreateNew();
-      Helpers::dnd($cart);
       $item = CartItems::findByProductIdOrCreate($cart->id, $product_id);
+      $item->quantity = $item->quantity + 1;
+      $item->save();
     	$this->view->render('carts/addToCart');
     }
 
