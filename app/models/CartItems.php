@@ -21,9 +21,9 @@ class CartItems extends Model {
 	}
 
 	public static function findByProductIdOrCreate($cart_id, $product_id) {
-		$item = self::findFirst([
-			'condtions' => "cart_id = ? AND product_id = ?",
-			'bind' => [$cart_id, $product_id]
+		$item = self::find([
+			"conditions" => "cart_id = ? AND product_id = ?",
+			"bind" => [(int)$cart_id, (int)$product_id],
 		]);
 
 
@@ -34,6 +34,7 @@ class CartItems extends Model {
       $item->save();
 		}
 
+		Helpers::dnd($item);
 
 		return $item;
 	}
