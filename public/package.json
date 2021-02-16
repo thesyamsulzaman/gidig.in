@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "gulp watch"
+    "dev": "gulp watch",
+    "style": "gulp style"
   },
   "keywords": [],
   "author": "",

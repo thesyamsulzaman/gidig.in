@@ -10,12 +10,11 @@ use Core\Helpers;
 ?>
 
 <?php $this->start('body'); ?>
-    <section id="products">
-      <div class="container">
+    <section id="product-detail" class="container">
 
         <div class="navigator">
           <a href="<?= PROJECT_ROOT; ?>">
-          <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-chevron-left"></i>
           	Kembali
         	</a>
         </div>
@@ -32,9 +31,9 @@ use Core\Helpers;
 
           <div class="product-detail-info">
             <h1 class="product-detail-title"><?= $this->product->name; ?></h1>
-            <span><?= $this->product->getBrandName(); ?></span>
-            <p class="product-detail-price">Rp. <?= $this->product->price; ?></p>
+            <span class="product-detail-brand"><?= $this->product->getBrandName(); ?></span>
 
+            <hr />
 
             <div class="product-detail-description">
               <span class="product-detail-description-header">
@@ -45,22 +44,14 @@ use Core\Helpers;
               </p>
             </div>
 
+            <hr />
 
             <div class="product-detail-cart-action">
-              <div class="product-detail-cart-quantity">
-                <button class="quantity-operator quantity-minus"> 
-                  <img src="./icons/minus-square.svg" alt="">
-                </button>
-                <span>1</span>
-                <button class="quantity-operator quantity-plus"> 
-                  <img src="./icons/plus-square.svg" alt="">
-                </button>
-              </div>
+              <p class="product-detail-price">Rp. <?= $this->product->price; ?></p>
               <button class="btn btn-lg btn-block btn-dark">
                 <i class="fas fa-cart-plus"></i>
                 Add to cart
               </button>
-
             </div>
 
           </div>
@@ -68,7 +59,6 @@ use Core\Helpers;
         </div>
 
 
-      </div>
     </section>
 
 <?php $this->end(); ?>

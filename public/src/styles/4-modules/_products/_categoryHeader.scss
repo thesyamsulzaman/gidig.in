@@ -1,6 +1,6 @@
 .category-header {
   font-family: $font-medium;
-  font-size: 1.6rem;
+  font-size: 1rem;
   margin: .4em 0;
 
   &::before {
@@ -12,3 +12,10 @@
   }
 }
 
+
+@media (min-width: $breakpoint-tablet) {
+  .category-header {
+    font-size: 1.5rem;
+  }
+
+}

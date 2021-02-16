@@ -4,6 +4,7 @@
   overflow:hidden;
   background-color:#fff;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
 }
 
 .product-card-img {
@@ -14,23 +15,22 @@
   text-transform:uppercase;
   display:inline-block;
   margin-bottom: .8em;
+  font-size: .4rem;
 }
 
 .product-card-detail {
   margin-left:auto;
   margin-right:auto;
   background-color:#fff;
-  padding: 0.8em .6em;
+  padding: 0.5em .6em;
 
 
   & .product-card-detail-title {
-    font-size: 1.1rem;
+    font-size: .8rem;
     line-height: 1.19em;
     font-family:$font-medium;
     color: #141519;
     display:block;
-    //margin-top: .5em;
-    //text-decoration: underline;
   }
   & a:hover {
     text-decoration: underline;
@@ -45,14 +45,16 @@
 
 .product-card-detail-pricing {
   display:block;
-  margin-top: .5em;
+  margin-top: .2em;
 
   & .product-price {
-    color: $softGreen;
+    color: green;
+    font-weight: bold;
+    font-size: .8rem;
   }
 
   & .product-daily-cost {
-    font-size: .9rem;
+    font-size: .7rem;
     color: $gray;
 
   }
@@ -60,16 +62,40 @@
 
 .product-card-button {
   margin-top: 1.0em;
+  font-size: .65rem;
 }
 
 @media (min-width: $breakpoint-tablet) { 
   .product-card-detail {
-    & a {
+    
+    & .product-card-detail-title {
       font-size: 1.3rem;
     }
+
+  }
+
+  .product-card-detail-pricing {
+    margin-top: .5em;
+
+    & .product-price {
+      font-size: .9rem;
+    }
+
+    & .product-daily-cost {
+      font-size: 1rem;
+    }
+  }
+
+  .product-card-detail-pricing {
+
     & .product-price {
       font-size: 1.3rem;
     }
+
+  }
+
+  .product-card-button {
+    font-size: 1rem;
   }
 
   .product-card-category {

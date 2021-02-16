@@ -1,0 +1,19 @@
+.navigator {
+  margin-bottom: 1.2em;
+
+  & a {
+    font-size: .9rem;
+    font-family: $font-medium;
+    margin-left: .51em;
+  }
+
+}
+
+@media (min-width: $breakpoint-tablet) {
+  .navigator {
+    & a {
+      font-size: 1.2rem;
+    }
+  }
+
+}
