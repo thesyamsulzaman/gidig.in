@@ -14,7 +14,7 @@
     public function indexAction() {
       $cart_id = Cookie::get(CART_COOKIE_NAME);
       $items = Carts::findAllItemsByCartId((int)$cart_id);
-      Helpers::dnd($items);
+      $this->view->items = $items;
       $this->view->render('carts/index');
     }
 

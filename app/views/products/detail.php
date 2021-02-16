@@ -11,7 +11,6 @@ use Core\Helpers;
 
 <?php $this->start('body'); ?>
     <section id="product-detail" class="container">
-
         <div class="navigator">
           <a href="<?= PROJECT_ROOT; ?>">
             <i class="fas fa-chevron-left"></i>

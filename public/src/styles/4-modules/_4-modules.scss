@@ -1,3 +1,6 @@
+// Common modules
+@import '_common/common.scss';
+
 // Header
 @import '_header/header.scss';
 
@@ -7,6 +10,8 @@
 // Product List
 @import '_product-detail/product-detail.scss';
 
+// Product List
+@import '_shopping-cart/shopping-cart.scss';
+
 // Dashboard
 @import '_dashboard/dashboard.scss';
-

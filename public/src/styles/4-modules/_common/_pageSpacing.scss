@@ -1,12 +1,10 @@
-#product-detail {
+%page-spaced {
   position:relative;
   margin-top: 4.0em;
 }
 
-
-
 @media (min-width: $breakpoint-tablet) {
-	#product-detail {
+	%page-spaced {
     margin-top: 4.5em;
 	}
 }

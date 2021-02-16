@@ -1,15 +1,11 @@
 #products {
-  height:100vh;
   position:relative;
+	margin-top: 4em;
 
-  & .container {
-    margin-top: 4.7em;
-  }
 }
 
 
 .products-list {
-  //margin-top: 1.3em;
   display:grid;
   grid-template-columns: repeat(2, 1fr);
   align-items:start;
