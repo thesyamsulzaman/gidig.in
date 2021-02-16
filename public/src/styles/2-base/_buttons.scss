@@ -5,11 +5,9 @@
   border-radius: 5px;
   text-align:center;
   border: 1px solid #bbb;
-  outline:0;
-  display: block;
 
   &-sm {
-    padding: .4em .8em;
+    padding: .8em .8em;
     font-size: .7rem;
   }
   &-lg {
@@ -18,9 +16,10 @@
 
   }
   &-block {
-    width:100%;
-
+    max-width:100%;
+    display:block;
   }
+
   &-dark {
     background: $black;
     color:#fff;

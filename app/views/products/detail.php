@@ -47,7 +47,7 @@ use Core\Helpers;
 
             <div class="product-detail-cart-action">
               <p class="product-detail-price">Rp. <?= $this->product->price; ?></p>
-              <a href="<?= PROJECT_ROOT; ?>cart/addToCart/<?= $this->product->id; ?>" class="btn btn-lg btn-block btn-dark product-card-button">
+              <a href="<?= PROJECT_ROOT; ?>cart/addToCart/<?= $this->product->id; ?>" class="btn btn-dark btn-block">
                <i class="fas fa-cart-plus"></i>
                 Tambah ke Keranjang
               </a>

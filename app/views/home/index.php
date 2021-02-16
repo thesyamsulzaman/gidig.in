@@ -31,7 +31,7 @@ use App\Models\Users;
           	<span class="product-daily-cost">/ Hari</span>
           <?php endif; ?>
         </div>
-        <a href="<?= PROJECT_ROOT; ?>cart/addToCart/<?= $product->id; ?>" class="btn btn-lg btn-block btn-dark product-card-button">
+        <a href="<?= PROJECT_ROOT; ?>cart/addToCart/<?= $product->id; ?>" class="btn btn-sm btn-block btn-dark product-card-button">
           Tambah ke Keranjang
         </a>
       </div>
