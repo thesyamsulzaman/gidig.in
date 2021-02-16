@@ -211,8 +211,8 @@ textarea {
     padding: .65em .8em;
     font-size: 1rem; }
   .btn-block {
-    max-width: 100%;
-    display: block; }
+    display: block;
+    max-width: 100%; }
   .btn-dark {
     background: #181d24;
     color: #fff; }
