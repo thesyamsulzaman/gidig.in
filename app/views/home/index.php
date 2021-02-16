@@ -10,7 +10,7 @@ use App\Models\Users;
 
 <?php $this->start('body'); ?>
 
-<section id="products" class="container" style="margin-top: 4.5em;">
+<section id="products" class="container">
 
   <h1 class="category-header">Semua Produk</h1>
 

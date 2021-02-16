@@ -56,7 +56,7 @@ $currentPage = Helpers::currentPage();
         <img width="22" src="<?= STATIC_FILES; ?>build/icons/search-alt.svg" alt="">
       </a>
 
-      <a class="shopping-cart" href="">
+      <a class="shopping-cart" href="<?= PROJECT_ROOT ?>cart/">
         <img src="<?= STATIC_FILES; ?>build/icons/shopping-cart.svg" alt="">
         <span>3</span>
       </a>

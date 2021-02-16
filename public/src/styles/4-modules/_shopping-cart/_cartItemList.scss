@@ -1,0 +1,59 @@
+.shopping-cart-body {
+	margin-top: 1em;
+
+	&-list {
+		&-item {
+
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			& > * {
+				// border: 1px solid green;
+			}
+
+
+			&-image > img {
+				width: 100px;
+				flex: 1;
+			}
+
+			&-quantity {
+			}
+
+			&-info {
+				flex: 1;
+				margin-left: .5em;
+
+				& > *:not(:first-child) {
+					// border: 1px solid green;
+					margin-top: .5em;
+				}
+
+
+				&-name {
+					font-color: $headerSoftGray;
+					font-size: 1rem;
+					font-weight: bold;
+					display: block;
+				}
+				&-brand {
+					font-size: .6rem;
+				}
+				&-price {
+					font-size: .9rem;
+					font-weight: bold;
+				}
+				
+			}
+
+		}
+
+	}
+	&-list {}
+
+}
+
+@media (min-width: $breakpoint-tablet) {
+	
+}

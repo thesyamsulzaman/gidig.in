@@ -317,10 +317,6 @@ textarea {
   background-size: cover;
   background-position: bottom; }
 
-#products {
-  position: relative;
-  margin-top: 4em; }
-
 .products-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -429,12 +425,12 @@ textarea {
   .category-header, .shopping-cart-header {
     font-size: 1.5rem; } }
 
-#product-detail, #shopping-cart {
+#products, #product-detail, #shopping-cart {
   position: relative;
   margin-top: 4.0em; }
 
 @media (min-width: 768px) {
-  #product-detail, #shopping-cart {
+  #products, #product-detail, #shopping-cart {
     margin-top: 4.5em; } }
 
 .nav-logo {
@@ -698,8 +694,7 @@ textarea {
   margin-bottom: 1.2em; }
   .navigator a {
     font-size: .9rem;
-    font-family: "Inter Medium", sans-serif;
-    margin-left: .51em; }
+    font-family: "Inter Medium", sans-serif; }
 
 @media (min-width: 768px) {
   .navigator a {
@@ -710,6 +705,31 @@ textarea {
   max-height: 100px;
   width: 100%;
   object-fit: cover; }
+
+.shopping-cart-body {
+  margin-top: 1em; }
+  .shopping-cart-body-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; }
+    .shopping-cart-body-list-item-image > img {
+      width: 100px;
+      flex: 1; }
+    .shopping-cart-body-list-item-info {
+      flex: 1;
+      margin-left: .5em; }
+      .shopping-cart-body-list-item-info > *:not(:first-child) {
+        margin-top: .5em; }
+      .shopping-cart-body-list-item-info-name {
+        font-color: #474747;
+        font-size: 1rem;
+        font-weight: bold;
+        display: block; }
+      .shopping-cart-body-list-item-info-brand {
+        font-size: .6rem; }
+      .shopping-cart-body-list-item-info-price {
+        font-size: .9rem;
+        font-weight: bold; }
 
 .dashboard-nav {
   position: sticky;
