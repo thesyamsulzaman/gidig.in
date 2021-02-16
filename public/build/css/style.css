@@ -204,7 +204,8 @@ textarea {
   border-radius: 5px;
   text-align: center;
   border: 1px solid #bbb;
-  outline: 0; }
+  outline: 0;
+  display: block; }
   .btn-sm {
     padding: .4em .8em;
     font-size: .7rem; }
@@ -233,7 +234,8 @@ textarea {
 .card {
   background: #fff;
   padding: .31em .9em;
-  border-radius: 3px; }
+  border-radius: 3px;
+  box-sizing: border-box; }
   .card.shadow {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
@@ -707,17 +709,39 @@ textarea {
   object-fit: cover; }
 
 .shopping-cart-body {
-  margin-top: 1em; }
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column; }
+  .shopping-cart-body-checkout {
+    margin-top: 1em;
+    border: 1px solid #80848c;
+    padding-top: .8em;
+    padding-bottom: .8em; }
+    .shopping-cart-body-checkout > * {
+      margin-top: .6em; }
+    .shopping-cart-body-checkout-body > div {
+      display: flex;
+      justify-content: space-between;
+      margin: .9em 0; }
   .shopping-cart-body-list-item {
     display: flex;
     align-items: center;
-    justify-content: space-between; }
+    justify-content: space-between;
+    padding: 0 .8em; }
     .shopping-cart-body-list-item-image > img {
-      width: 100px;
+      width: 90px;
+      height: 100px;
+      object-fit: cover;
       flex: 1; }
+    .shopping-cart-body-list-item-quantity {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 80px; }
     .shopping-cart-body-list-item-info {
       flex: 1;
-      margin-left: .5em; }
+      margin-left: .8em; }
       .shopping-cart-body-list-item-info > *:not(:first-child) {
         margin-top: .5em; }
       .shopping-cart-body-list-item-info-name {
@@ -726,10 +750,21 @@ textarea {
         font-weight: bold;
         display: block; }
       .shopping-cart-body-list-item-info-brand {
-        font-size: .6rem; }
+        font-size: .7rem; }
       .shopping-cart-body-list-item-info-price {
         font-size: .9rem;
         font-weight: bold; }
+
+@media (min-width: 768px) {
+  .shopping-cart-body {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start; }
+    .shopping-cart-body-list {
+      flex: 1; }
+    .shopping-cart-body-checkout {
+      min-width: 350px;
+      margin-left: 1em; } }
 
 .dashboard-nav {
   position: sticky;

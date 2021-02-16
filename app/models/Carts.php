@@ -40,7 +40,7 @@ class Carts extends Model {
             products.name AS product_name, 
             product_images.url, 
             products.price AS product_price,
-            products.shipping,
+            products.shipping AS product_shipping,
             brands.name AS brand_name
     	FROM 
     		cart_items
