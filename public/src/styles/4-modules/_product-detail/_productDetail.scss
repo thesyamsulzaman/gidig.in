@@ -1,5 +1,4 @@
 
-
 .product-detail-sub-images {
   margin-top: 1em;
   display:flex;
@@ -18,11 +17,12 @@
     }
   }
 }
+
 .product-detail-title {
   font-size: 1.6rem;
   margin:.90em 0 .30em 0;
-  font-family: $font-medium;
-  color: $black;
+  font-family: $font-bold;
+  color: $headerGray;
 }
 
 .product-detail-brand {
@@ -42,8 +42,18 @@
   padding: .4em 0;
   height:auto;
 
-  & span { padding: 1.5em 0; color: $black; font-weight: $font-medium; }
-  & p { margin-top: .51em; text-align:left; font-family: $font-regular; color: $gray; }
+  & span { 
+    padding: 1.5em 0; 
+    color: $headerSoftGray; 
+    font-weight: bold; 
+  }
+  & p { 
+    margin-top: .51em; 
+    text-align: left; 
+    color: $bodyGray;  
+    font-family: $font-regular; 
+    color: $gray; 
+  }
 }
 
 .product-detail-cart-action {
@@ -69,13 +79,13 @@
   }
   .product-detail {
     display:flex;
-    height:100vh;
+    height:auto;
 
     & .product-detail-images {
       flex:1;
     }
     & .product-detail-info {
-      //margin-left: 2em;
+      margin-left: 2em;
       flex:1;
     }
   }

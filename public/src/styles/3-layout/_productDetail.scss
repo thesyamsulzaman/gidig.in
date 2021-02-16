@@ -1,4 +1,12 @@
 #product-detail {
   position:relative;
-  margin-top: 5.0em;
+  margin-top: 4.0em;
+}
+
+
+
+@media (min-width: $breakpoint-tablet) {
+	#product-detail {
+    margin-top: 4.5em;
+	}
 }
