@@ -9,7 +9,12 @@
 
   use App\Models\Carts;
   use App\Models\CartItems;
+  use App\Models\Transactions;
+
   use App\Lib\Gateways\Gateway;
+
+  use \Stripe\Stripe;
+  use \Stripe\Charge;
 
   class CartController extends Controller {
 
@@ -65,7 +70,25 @@
 
     public function checkoutAction($cart_id) {
       $gateway = Gateway::build((int)$cart_id);
+      $transaction = new Transactions();
+
+      if ($this->request->isPost()) {
+        $whiteList = [
+          'name', 'shipping_address1', 
+          'shipping_address2', 'shipping_city',
+          'shipping_state', 'shipping_zip'
+        ];
+        $this->request->csrfCheck();
+        $transaction->assign($this->request->get(), $whiteList);
+        $transaction->validateShipping();
+        $response = $gateway->processForm($this->request->get());
+      }
+
+      $this->view->formErrors = $transaction->getErrorMessages();
+      $this->view->transaction = $transaction;
+      $this->view->cartId = $cart_id;
       $this->view->render($gateway->getView());
+
 
 
     }

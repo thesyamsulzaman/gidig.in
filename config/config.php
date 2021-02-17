@@ -27,6 +27,9 @@
 
   // Gateway Settings
   define('GATEWAY', 'stripe');
+  define('STRIPE_PUBLIC', 'pk_test_51ILhOnEhqCq0PfjQFwF9aHXI3GCfzzu5zqCPSwTtkzwkM9ghFSD4b3ppBDCTxlxEjvEZkT7zuOeKKQ3ItLBw0YWA00FsG7IIJx');
+  define('STRIPE_PRIVATE', 'sk_test_51ILhOnEhqCq0PfjQsOulKwyFNKABbR1NwcbAoe0XZzNboI97Q28GLjdDQWi7rPSQvfdelFBljioiCK8rCqJhRLGW00x5BfH7xR');
+  
 
   // default Controller
   define('ACCESS_RESTRICTED', 'Restricted'); // controller name for restricted route
