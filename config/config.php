@@ -25,9 +25,13 @@
   define("CART_COOKIE_NAME", 'abcdefghaijkl');
   define("CART_COOKIE_EXPIRY", 36288000);
 
+  // Gateway Settings
+  define('GATEWAY', 'stripe');
+
   // default Controller
   define('ACCESS_RESTRICTED', 'Restricted'); // controller name for restricted route
   define('DEFAULT_CONTROLLER', 'HomeController'); // default controller if theres isnt one defined by the url
+
 
 
 ?>

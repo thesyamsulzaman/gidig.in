@@ -71,7 +71,7 @@ use Core\Helpers;
     		</div>
 
     		<div class="shopping-cart-body-checkout-proceed">
-    			<button class="btn btn-lg btn-block btn-dark">Checkout</button>
+    			<a href="<?= PROJECT_ROOT; ?>cart/checkout/<?= $this->cartId; ?>" class="btn btn-lg btn-block btn-dark">Checkout</a>
     		</div>
 
 

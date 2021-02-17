@@ -6,5 +6,7 @@
             "email": "thesyamsulzaman@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "stripe/stripe-php": "^7.73"
+    }
 }

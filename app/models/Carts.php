@@ -22,11 +22,11 @@ class Carts extends Model {
 
 	public static function findCurrentCartOrCreateNew() {
         if (!Cookie::exists(CART_COOKIE_NAME)) {
-    		$cart = new Carts();
-            $cart->save();
+    	  $cart = new Carts();
+          $cart->save();
     	} else {
-    		$cart_id = Cookie::get(CART_COOKIE_NAME);
-    		$cart = self::findById((int) $cart_id);
+    	  $cart_id = Cookie::get(CART_COOKIE_NAME);
+    	  $cart = self::findById((int) $cart_id);
     	}
 
     	Cookie::set(CART_COOKIE_NAME, $cart->id, CART_COOKIE_EXPIRY);
@@ -58,7 +58,9 @@ class Carts extends Model {
     
     $db = Database::getInstance();
     return $db->query($sql, [(int)$cart_id] )->results();
+
 	}
+
 
 
 

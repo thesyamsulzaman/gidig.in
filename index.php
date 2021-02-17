@@ -30,6 +30,7 @@
 
   // autoloader
   spl_autoload_register('autoload');
+  require_once('vendor/autoload.php');
 	session_start();
 
 	// Parse the url into an array

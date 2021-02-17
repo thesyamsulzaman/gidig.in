@@ -9,6 +9,7 @@
 
   use App\Models\Carts;
   use App\Models\CartItems;
+  use App\Lib\Gateways\Gateway;
 
   class CartController extends Controller {
 
@@ -33,6 +34,7 @@
       $this->view->grandTotal = number_format(($shippingTotal + $subTotal), 2);
 
       $this->view->items = $items;
+      $this->view->cartId = $cart_id;
       $this->view->render('carts/index');
     }
 
@@ -59,6 +61,13 @@
         $item->delete();
       }
       Router::redirect("cart");
+    }
+
+    public function checkoutAction($cart_id) {
+      $gateway = Gateway::build((int)$cart_id);
+      $this->view->render($gateway->getView());
+
+
     }
 
 
