@@ -36,12 +36,12 @@ class Carts extends Model {
 	public static function findAllItemsByCartId($cart_id) {
     $sql = '
     	SELECT 
-            cart_items.*, 
-            products.name AS product_name, 
-            product_images.url, 
-            products.price AS product_price,
-            products.shipping AS product_shipping,
-            brands.name AS brand_name
+        cart_items.*, 
+        products.name AS product_name, 
+        product_images.url, 
+        products.price AS product_price,
+        products.shipping AS product_shipping,
+        brands.name AS brand_name
     	FROM 
     		cart_items
     	JOIN

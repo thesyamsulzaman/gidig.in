@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controllers;
 
@@ -14,66 +14,71 @@ use App\Models\Brands;
 use App\Lib\Utilities\Uploads;
 
 
-class AdminProductsController extends Controller {
+class AdminProductsController extends Controller
+{
 
-  public function onConstruct() {
-		$this->view->setLayout('admin');
+  public function onConstruct()
+  {
+    $this->view->setLayout('admin');
     $this->currentUser = Users::currentUser();
   }
 
-	public function indexAction() {
+  public function indexAction()
+  {
     $this->view->products = Products::findByUserId($this->currentUser->id);
-		$this->view->render('admin_products/index');
-	}
+    $this->view->render('admin_products/index');
+  }
 
-  public function categoryAction($category = "") {
+  public function categoryAction($category = "")
+  {
     $this->view->category = $category;
-		$this->view->render('admin_products/category');
+    $this->view->render('admin_products/category');
   }
 
 
-  public function editAction($id) {
+  public function editAction($id)
+  {
     $user = Users::currentUser();
-    $product = Products::findByIdAndUserId((int)$id,$user->id);
-    if(!$product){
+    $product = Products::findByIdAndUserId((int)$id, $user->id);
+    if (!$product) {
       Router::redirect('adminproducts');
     }
     $brands = Brands::getBrandsForForm($user->id);
     $images = ProductImages::findByProductId($product->id);
-    if($this->request->isPost()){
+    if ($this->request->isPost()) {
       $this->request->csrfCheck();
       $files = $_FILES['images'];
       $isFiles = $files['tmp_name'][0] != '';
-      if($isFiles){
+      if ($isFiles) {
         $uploads = new Uploads($files);
         $uploads->runValidation();
         $imagesErrors = $uploads->validates();
-        if(is_array($imagesErrors)){
+        if (is_array($imagesErrors)) {
           $msg = "";
-          foreach($imagesErrors as $name => $message){
+          foreach ($imagesErrors as $name => $message) {
             $msg .= $message . " ";
           }
-          $product->addErrorMessage('images[]',trim($msg));
+          $product->addErrorMessage('images[]', trim($msg));
         }
       }
 
-      $product->assign($this->request->get(),Products::blackList);
+      $product->assign($this->request->get(), Products::blackList);
       $product->isRentable($product->rentable());
       $product->isFeatured($product->featured());
 
       $product->description = trim($product->description);
       $product->user_id = $this->currentUser->id;
       $product->brand_id = (int) $this->request->get('brand');
-      
+
       $product->save();
 
-      if($product->validationPassed()){
-        if($isFiles){
+      if ($product->validationPassed()) {
+        if ($isFiles) {
           //upload images
-          ProductImages::uploadProductImages($product->id,$uploads);
+          ProductImages::uploadProductImages($product->id, $uploads);
         }
         $sortOrder = json_decode($_POST['images_sorted']);
-        ProductImages::updateSortByProductId($product->id,$sortOrder);
+        ProductImages::updateSortByProductId($product->id, $sortOrder);
         //redirect
         Router::redirect('adminproducts');
       }
@@ -86,10 +91,10 @@ class AdminProductsController extends Controller {
     $this->view->formAction = PROJECT_ROOT . 'adminproducts' . DS . 'edit' . DS . $id;
     $this->view->displayErrors = $product->getErrorMessages();
     $this->view->render('admin_products/edit');
-
   }
 
-  public function addAction() {
+  public function addAction()
+  {
 
     $product = new Products();
     $productImages = new ProductImages();
@@ -98,10 +103,7 @@ class AdminProductsController extends Controller {
     if ($this->request->isPost()) {
 
       $this->request->csrfCheck();
-
-
       $product->assign($this->request->get());
-
       $product->isRentable($product->rentable());
       $product->isFeatured($product->featured());
       $product->user_id = $this->currentUser->id;
@@ -117,7 +119,6 @@ class AdminProductsController extends Controller {
       if ($fileEmpty) {
         $msg = "File gambar wajib diupload";
         $product->addErrorMessage("images[]", $msg);
-
       } else {
         $uploads->runValidation();
         $imageErrors = $uploads->validates();
@@ -129,12 +130,11 @@ class AdminProductsController extends Controller {
           }
           $product->addErrorMessage('images[]',  trim($msg));
         }
-
       }
 
       if ($product->save()) {
         $productImages::uploadProductImages($product->id, $uploads);
-        Router::redirect("adminproducts"); 
+        Router::redirect("adminproducts");
       }
     }
 
@@ -147,66 +147,59 @@ class AdminProductsController extends Controller {
   }
 
 
-  public function deleteImageAction() {
+  public function deleteImageAction()
+  {
     $response = ["success" => false, 'message' => "Terjadi kesalahan ..."];
     if ($this->request->isPost()) {
-      $user = $this->currentUser; 
+      $user = $this->currentUser;
       $image_id = $this->request->getAjax("id");
       $image = ProductImages::findById($image_id);
-      $product = Products::findByIdAndUserId($image->product_id,$user->id);
+      $product = Products::findByIdAndUserId($image->product_id, $user->id);
       if ($product && $image) {
         ProductImages::deleteById($image->id);
         $response = ["success" => true, "message" => "Berhasi dihapus", "image_id" => $image->id];
       }
     }
     return $this->jsonResponse($response);
-
   }
 
 
+  public function deleteAction()
+  {
+    $response = ["success" => false, 'message' => "Terjadi kesalahan ..."];
 
-  
+    if ($this->request->isPost()) {
+      $id = $this->request->getAjax('id');
+      $product = Products::findByIdAndUserId((int) $id, $this->currentUser->id);
+      if ($product) {
+        ProductImages::deleteImages($id);
+        $product->delete();
+        $response = ["success" => true, "message" => "Berhasi dihapus", "product_id" => $id];
+      }
+    }
 
-
-
-  public function deleteAction() { 
-     $response = ["success" => false, 'message' => "Terjadi kesalahan ..."];
-
-     if ($this->request->isPost()) {
-       $id = $this->request->getAjax('id');
-       $product = Products::findByIdAndUserId((int) $id, $this->currentUser->id);
-       if ($product) {
-         ProductImages::deleteImages($id);
-         $product->delete();
-         $response = ["success" => true, "message" => "Berhasi dihapus", "product_id" => $id];
-       }
-     }
-
-     $this->jsonResponse($response);
-
+    $this->jsonResponse($response);
   }
 
-  public function toggleFeaturedAction() {
-     $response = ["success" => false, 'message' => "Terjadi kesalahan ..."];
+  public function toggleFeaturedAction()
+  {
+    $response = ["success" => false, 'message' => "Terjadi kesalahan ..."];
 
-     if ($this->request->isPost()) {
-       $id = $this->request->getAjax('id');
-       $product = Products::findByIdAndUserId((int) $id, $this->currentUser->id);
-       if ($product) {
+    if ($this->request->isPost()) {
+      $id = $this->request->getAjax('id');
+      $product = Products::findByIdAndUserId((int) $id, $this->currentUser->id);
+      if ($product) {
         $product->featured = !$product->featured;
         $product->save();
         $response = [
-          "success" => true, 
-          "message" => ($product->featured == 1) ? "Berubah menjadi Produk Andalan" : "Berubah menjadi Produk biasa" , 
+          "success" => true,
+          "message" => ($product->featured == 1) ? "Berubah menjadi Produk Andalan" : "Berubah menjadi Produk biasa",
           "product_id" => $id,
-          "is_featured" => ($product->featured == 1) ? true : false, 
+          "is_featured" => ($product->featured == 1) ? true : false,
         ];
-       }
-     }
+      }
+    }
 
-     $this->jsonResponse($response);
-
+    $this->jsonResponse($response);
   }
-  
 }
-

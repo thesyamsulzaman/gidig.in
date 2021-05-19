@@ -32,10 +32,3 @@ abstract class AbstractGateway {
 
 
 }
-
-
-
-
-
-
-?>

@@ -1,12 +1,14 @@
 <?php $this->start('head'); ?>
 
 <style type="text/css">
-	.__PrivateStripeElement	{
-		padding: 1em !important;
-	}
 </style>
 
 <?php $this->end(); ?>
+
+<?php 
+use Core\FormHelpers;
+
+ ?>
 
 <?php $this->start('body'); ?>
 <section id="shopping-cart" class="container">
@@ -43,20 +45,30 @@
 	var stripe = Stripe('<?= STRIPE_PUBLIC; ?>');
 	var elements = stripe.elements();
 
-	// Custom styling can be passed to options when creating an Element.
-	var style = {
-	  base: {
-	    // Add your base input styles here. For example:
-	    fontSize: '16px',
-	    color: '#32325d',
-	  },
-	};
+	// custom styling can be passed to options when creating an element.
+	var style: {
+      base: {
+        color: "#32325D",
+        fontWeight: 500,
+        fontFamily: "Inter UI, Open Sans, Segoe UI, sans-serif",
+        fontSize: "16px",
+        fontSmoothing: "antialiased",
 
-	// Create an instance of the card Element.
+        "::placeholder": {
+          color: "#CFD7DF"
+        }
+      },
+      invalid: {
+        color: "#E25950"
+      }
+  };
+
+	// create an instance of the card element.
 	var card = elements.create('card', {style: style});
 
-	// Add an instance of the card Element into the `card-element` <div>.
+	// add an instance of the card element into the `card-element` <div>.
 	card.mount('#card-element');
+
 
 	// Create a token or display an error when the form is submitted.
 	var form = document.getElementById('payment-form');

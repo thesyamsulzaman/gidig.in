@@ -99,6 +99,7 @@ const app = {
       );
     }
   },
+  
   dragAndDropUploader: () => {
     document.querySelectorAll(".drop-image__holder").forEach(inputElement => {
       const dropZoneElement = inputElement.closest(".drop-image");

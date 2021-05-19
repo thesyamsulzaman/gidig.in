@@ -81,6 +81,10 @@
         $this->request->csrfCheck();
         $transaction->assign($this->request->get(), $whiteList);
         $transaction->validateShipping();
+        $step = $this->request->get('step');
+        if ($step == '2') {
+          $response = "";
+        }
         $response = $gateway->processForm($this->request->get());
       }
 
@@ -96,6 +100,3 @@
 
 
   }
-
-?>
-

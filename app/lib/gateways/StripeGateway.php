@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Lib\Gateways;
 
 use App\Lib\Gateways\AbstractGateway;
@@ -6,15 +7,16 @@ use App\Lib\Gateways\AbstractGateway;
 use \Stripe\Stripe;
 use \Stripe\Charge;
 
-class StripeGateway extends AbstractGateway {
+class StripeGateway extends AbstractGateway
+{
 
-	public function getView() {
-
+	public function getView()
+	{
 		return 'card_forms/stripe';
-
 	}
 
-	public function processForm($post) {
+	public function processForm($post)
+	{
 		$data = [
 			'amount' => $this->grandTotal * 100,
 			'currency' => 'usd',
@@ -25,18 +27,19 @@ class StripeGateway extends AbstractGateway {
 		$charge = $this->charge($data);
 	}
 
-	public function charge($data) {
-    Stripe::setApiKey(STRIPE_PRIVATE);
-    $token = $data['stripeToken'];
-    $charge = Charge::create($data);
+	public function charge($data)
+	{
+		Stripe::setApiKey(STRIPE_PRIVATE);
+		$token = $data['stripeToken'];
+		$charge = Charge::create($data);
 
-    return $charge;
+		return $charge;
 	}
 
-	public function handleChargeResponse($charge) {}
-	public function createTransaction($charge) {}
-
+	public function handleChargeResponse($charge)
+	{
+	}
+	public function createTransaction($charge)
+	{
+	}
 }
-
-
-?>

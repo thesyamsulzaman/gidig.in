@@ -13,6 +13,3 @@ class AdminController extends Controller {
     $this->view->render('admin/index');
   }
 }
-
-?>
-
