@@ -1,12 +1,13 @@
 <?php $this->start('head'); ?>
 <?php $this->end(); ?>
 
-<?php 
+<?php
+
 use Core\Helpers;
 use Core\Session;
 use App\Models\Users;
 
- ?>
+?>
 
 <?php $this->start('body'); ?>
 
@@ -43,7 +44,7 @@ use App\Models\Users;
     </table>
   </div>
 
-<?php Helpers::dnd($this->category); ?>
+  <?php Helpers::dnd($this->category); ?>
 
 </div>
 

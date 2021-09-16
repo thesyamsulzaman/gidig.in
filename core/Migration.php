@@ -1,10 +1,13 @@
 <?php
-  namespace Core;
-  use Core\Database;
-  use Core\Helpers;
 
-  abstract class Migration{
-    protected $_db;
+namespace Core;
+
+use Core\Database;
+use Core\Helpers;
+
+abstract class Migration
+{
+  protected $_db;
 
   protected $_columnTypesMap = [
     'int' => '_intColumn', 'integer' => '_intColumn', 'tinyint' => '_tinyintColumn', 'smallint' => '_smallintColumn',
@@ -14,7 +17,8 @@
     'char' => '_charColumn', 'varchar' => '_varcharColumn', 'text' => '_textColumn'
   ];
 
-  public function __construct(){
+  public function __construct()
+  {
     $this->_db = Database::getInstance();
   }
 
@@ -26,13 +30,14 @@
    * @param  string      $table name of the db table
    * @return boolean
    */
-  public function createTable($table){
+  public function createTable($table)
+  {
     $sql = "CREATE TABLE IF NOT EXISTS {$table} (
       id INT AUTO_INCREMENT,
       PRIMARY KEY (id)
       )  ENGINE=INNODB;";
     $res = !$this->_db->query($sql)->error();
-    $this->_printColor($res,"Creating Table " . $table);
+    $this->_printColor($res, "Creating Table " . $table);
     return $res;
   }
 
@@ -42,11 +47,12 @@
    * @param  string    $table name of table to be dropped
    * @return boolean
    */
-  public function dropTable($table){
+  public function dropTable($table)
+  {
     $sql = "DROP TABLE IF EXISTS {$table}";
     $msg =  "Dropping Table " . $table;
     $resp = !$this->_db->query($sql)->error();
-    $this->_printColor($resp,$msg);
+    $this->_printColor($resp, $msg);
     return $resp;
   }
 
@@ -59,14 +65,15 @@
    * @param  array     $attrs attributes such as size, precision, scale, before, after, definition
    * @return boolean
    */
-  public function addColumn($table, $name, $type, $attrs=[]){
-    $formattedType = call_user_func([$this,$this->_columnTypesMap[$type]],$attrs);
-    $definition = array_key_exists('definition',$attrs)? $attrs['definition']." " : "";
+  public function addColumn($table, $name, $type, $attrs = [])
+  {
+    $formattedType = call_user_func([$this, $this->_columnTypesMap[$type]], $attrs);
+    $definition = array_key_exists('definition', $attrs) ? $attrs['definition'] . " " : "";
     $order = $this->_orderingColumn($attrs);
     $sql = "ALTER TABLE {$table} ADD COLUMN {$name} {$formattedType} {$definition}{$order};";
-    $msg = "Adding Column " . $name . " To ". $table;
+    $msg = "Adding Column " . $name . " To " . $table;
     $resp = !$this->_db->query($sql)->error();
-    $this->_printColor($resp,$msg);
+    $this->_printColor($resp, $msg);
     return $resp;
   }
 
@@ -77,11 +84,12 @@
    * @param  string     $name  name of column to drop
    * @return boolean
    */
-  public function dropColumn($table, $name){
+  public function dropColumn($table, $name)
+  {
     $sql = "ALTER TABLE {$table} DROP COLUMN {$name};";
-    $msg = "Dropping Column " . $name . " From ". $table;
+    $msg = "Dropping Column " . $name . " From " . $table;
     $resp = !$this->_db->query($sql)->error();
-    $this->_printColor($resp,$msg);
+    $this->_printColor($resp, $msg);
     return $resp;
   }
 
@@ -91,9 +99,10 @@
    * @param  string        $table name of db table
    * @return boolean
    */
-  public function addTimeStamps($table){
-    $c = $this->addColumn($table,'created_at','datetime',['after'=>'id']);
-    $u = $this->addColumn($table,'updated_at','datetime',['after'=>'created_at']);
+  public function addTimeStamps($table)
+  {
+    $c = $this->addColumn($table, 'created_at', 'datetime', ['after' => 'id']);
+    $u = $this->addColumn($table, 'updated_at', 'datetime', ['after' => 'created_at']);
     return $c && $u;
   }
 
@@ -104,11 +113,12 @@
    * @param  string   $name  name of column to add index
    * @return boolean
    */
-  public function addIndex($table,$name){
+  public function addIndex($table, $name)
+  {
     $sql = "ALTER TABLE {$table} ADD INDEX {$name} ({$name})";
-    $msg = "Adding Index " . $name . " To ". $table;
+    $msg = "Adding Index " . $name . " To " . $table;
     $resp = !$this->_db->query($sql)->error();
-    $this->_printColor($resp,$msg);
+    $this->_printColor($resp, $msg);
     return $resp;
   }
 
@@ -119,11 +129,12 @@
    * @param  string    $name  name of column to drop index
    * @return boolean
    */
-  public function dropIndex($table, $name){
+  public function dropIndex($table, $name)
+  {
     $sql = "DROP INDEX {$name} ON {$table}";
-    $msg = "Dropping Index " . $name . " From ". $table;
+    $msg = "Dropping Index " . $name . " From " . $table;
     $resp = !$this->_db->query($sql)->error();
-    $this->_printColor($resp,$msg);
+    $this->_printColor($resp, $msg);
     return $resp;
   }
 
@@ -132,108 +143,129 @@
    * @method addSoftDelete
    * @param  string        $table name of table to add soft delete to
    */
-  public function addSoftDelete($table){
-    $this->addColumn($table,'deleted','tinyint');
+  public function addSoftDelete($table)
+  {
+    $this->addColumn($table, 'deleted', 'tinyint');
     $this->addIndex($table, 'deleted');
   }
 
-  protected function _textColumn($attrs){
+  protected function _textColumn($attrs)
+  {
     return "TEXT";
   }
 
-  protected function _varcharColumn($attrs){
+  protected function _varcharColumn($attrs)
+  {
     $params = $this->_parsePrecisionScale($attrs);
-    return "VARCHAR".$params;
+    return "VARCHAR" . $params;
   }
 
-  protected function _charColumn($attrs){
+  protected function _charColumn($attrs)
+  {
     $params = $this->_parsePrecisionScale($attrs);
-    return "CHAR".$params;
+    return "CHAR" . $params;
   }
 
-  protected function _yearColumn($attrs){
+  protected function _yearColumn($attrs)
+  {
     return "YEAR(4)";
   }
 
-  protected function _timeColumn($attrs){
+  protected function _timeColumn($attrs)
+  {
     return "TIME";
   }
 
-  protected function _timestampColumn($attrs){
+  protected function _timestampColumn($attrs)
+  {
     return "TIMESTAMP";
   }
 
-  protected function _datetimeColumn($attrs){
+  protected function _datetimeColumn($attrs)
+  {
     return "DATETIME";
   }
 
-  protected function _dateColumn($attrs){
+  protected function _dateColumn($attrs)
+  {
     return "DATE";
   }
 
-  protected function _bitColumn($attrs){
+  protected function _bitColumn($attrs)
+  {
     return "BIT(" . $attrs['size'] . ")";
   }
 
-  protected function _doubleColumn($attrs){
+  protected function _doubleColumn($attrs)
+  {
     $params = $this->_parsePrecisionScale($attrs);
-    return "DOUBLE".$params;
+    return "DOUBLE" . $params;
   }
 
-  protected function _floatColumn($attrs){
+  protected function _floatColumn($attrs)
+  {
     $params = $this->_parsePrecisionScale($attrs);
-    return "FLOAT".$params;
+    return "FLOAT" . $params;
   }
 
-  protected function _decimalColumn($attrs){
+  protected function _decimalColumn($attrs)
+  {
     $params = $this->_parsePrecisionScale($attrs);
-    return "DECIMAL".$params;
+    return "DECIMAL" . $params;
   }
 
-  protected function _bigintColumn($attrs){
+  protected function _bigintColumn($attrs)
+  {
     return 'BIGINT';
   }
 
-  protected function _mediumintColumn($attrs){
+  protected function _mediumintColumn($attrs)
+  {
     return 'MEDIUMINT';
   }
 
-  protected function _smallintColumn($attrs){
+  protected function _smallintColumn($attrs)
+  {
     return 'SMALLINT';
   }
 
-  protected function _tinyintColumn($attrs){
+  protected function _tinyintColumn($attrs)
+  {
     return 'TINYINT';
   }
 
-  protected function _intColumn($attrs){
+  protected function _intColumn($attrs)
+  {
     return "INT";
   }
 
-  protected function _parsePrecisionScale($attrs){
-    $precision = (array_key_exists('precision',$attrs))? $attrs['precision'] : null;
-    $precision = (!$precision && array_key_exists('size',$attrs))? $attrs['size'] : $precision;
-    $scale = (array_key_exists('scale',$attrs))? $attrs['scale'] : null;
-    $params = ($precision)? "(" . $precision : "";
-    $params .= ($precision && $scale) ? ", " .$scale : "";
+  protected function _parsePrecisionScale($attrs)
+  {
+    $precision = (array_key_exists('precision', $attrs)) ? $attrs['precision'] : null;
+    $precision = (!$precision && array_key_exists('size', $attrs)) ? $attrs['size'] : $precision;
+    $scale = (array_key_exists('scale', $attrs)) ? $attrs['scale'] : null;
+    $params = ($precision) ? "(" . $precision : "";
+    $params .= ($precision && $scale) ? ", " . $scale : "";
     $params .= ($precision) ? ")" : "";
     return $params;
   }
 
-  protected function _orderingColumn($attrs){
-    if(array_key_exists('after',$attrs)){
+  protected function _orderingColumn($attrs)
+  {
+    if (array_key_exists('after', $attrs)) {
       return "AFTER " . $attrs['after'];
-    } else if(array_key_exists('before',$attrs)){
+    } else if (array_key_exists('before', $attrs)) {
       return "BEFORE " . $attrs['before'];
     } else {
       return "";
     }
   }
 
-  protected function _printColor($res,$msg){
-    $for = ($res)? "\e[0;37;" : "\e[0;37;";
-    $back = ($res)? "42m" : "41m";
-    $title = ($res)? "SUCCESS: " : "FAIL: ";
-    echo $for.$back."\n\n"."    ".$title.$msg."\n\e[0m\n";
+  protected function _printColor($res, $msg)
+  {
+    $for = ($res) ? "\e[0;37;" : "\e[0;37;";
+    $back = ($res) ? "42m" : "41m";
+    $title = ($res) ? "SUCCESS: " : "FAIL: ";
+    echo $for . $back . "\n\n" . "    " . $title . $msg . "\n\e[0m\n";
   }
 }

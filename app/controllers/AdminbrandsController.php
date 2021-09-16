@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controllers;
 
@@ -9,35 +9,40 @@ use Core\Helpers;
 use App\Models\Brands;
 use App\Models\Users;
 
-class AdminBrandsController extends Controller {
+class AdminBrandsController extends Controller
+{
 
-	public function onConstruct() {
+	public function onConstruct()
+	{
 		$this->view->setLayout('admin');
 		$this->currentUser = Users::currentUser();
 	}
 
-	public function indexAction() {
+	public function indexAction()
+	{
 		$this->view->brands = Brands::find();
 		$this->view->render('admin_brands/index');
 	}
 
-	public function deleteBrandAction() {
-    $response = ["success" => false, 'message' => "Terjadi kesalahan ..."];
-    if ($this->request->isPost()) {
-      $brand_id = $this->request->getAjax("id");
-      $brand = Brands::findById($brand_id);
-      if ($brand) {
-      	$brand->delete();
-        $response = ["success" => true, "message" => "Berhasi dihapus", "brand_id" => $brand->id];
-      }
-    }
-    return $this->jsonResponse($response);
+	public function deleteBrandAction()
+	{
+		$response = ["success" => false, 'message' => "Terjadi kesalahan ..."];
+		if ($this->request->isPost()) {
+			$brand_id = $this->request->getAjax("id");
+			$brand = Brands::findById($brand_id);
+			if ($brand) {
+				$brand->delete();
+				$response = ["success" => true, "message" => "Berhasi dihapus", "brand_id" => $brand->id];
+			}
+		}
+		return $this->jsonResponse($response);
 	}
 
-	public function editAction($id) {
+	public function editAction($id)
+	{
 		$brand = Brands::findById($id);
 		if ($this->request->isPost()) {
-      $this->request->csrfCheck();
+			$this->request->csrfCheck();
 			$brand->assign($this->request->get());
 			$brand->user_id = $this->currentUser->id;
 			$brand->save();
@@ -49,7 +54,8 @@ class AdminBrandsController extends Controller {
 		$this->view->render('admin_brands/edit');
 	}
 
-	public function addAction() {
+	public function addAction()
+	{
 		$brand = new Brands();
 
 		if ($this->request->isPost()) {
@@ -57,7 +63,7 @@ class AdminBrandsController extends Controller {
 			$brand->user_id = $this->currentUser->id;
 			$brand->validator();
 
-			if($brand->save()) {
+			if ($brand->save()) {
 				Router::redirect("adminbrands");
 			}
 		}
@@ -66,5 +72,4 @@ class AdminBrandsController extends Controller {
 		$this->view->brand = $brand;
 		$this->view->render('admin_brands/add');
 	}
-
 }

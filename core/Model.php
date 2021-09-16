@@ -339,5 +339,3 @@ class Model {
 
 
 }
-
-?>

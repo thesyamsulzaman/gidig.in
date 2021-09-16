@@ -5,7 +5,7 @@
 
 <section class="content-container">
   <div class="dashboards-container">
-  	
+
     <div class="dashboard-chart-card"></div>
 
     <div class="dashboard-best-products-card"></div>

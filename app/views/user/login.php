@@ -1,11 +1,12 @@
 <?php $this->start('head'); ?>
 <?php $this->end(); ?>
 
-<?php 
-  use Core\FormHelpers;
+<?php
+
+use Core\FormHelpers;
 
 
- ?>
+?>
 
 <?php $this->start('body'); ?>
 
@@ -14,18 +15,18 @@
     <h1 class="login-header"> Login </h1>
     <form method="POST" action="<?= PROJECT_ROOT; ?>user/login">
       <div class="form-group">
-       <?= FormHelpers::csrf_input(); ?>
-      </div>      
-      <div class="form-group" >
+        <?= FormHelpers::csrf_input(); ?>
+      </div>
+      <div class="form-group">
         <label for="username">Username</label>
         <input id="username" value="<?= $this->login->username; ?>" name="username" placeholder="Username here" class="form-control" type="text">
       </div>
-      <div class="form-group" >
+      <div class="form-group">
         <label for="password">Password</label>
         <input id="password" name="password" value="<?= $this->login->password; ?>" class="form-control" type="password">
       </div>
       <div class="form-group" style="display: flex;">
-        <input name="remember_me" type="checkbox" class="form-control"/>
+        <input name="remember_me" type="checkbox" class="form-control" />
         <label for="remember_me">Ingat saya </label>
       </div>
       <div class="form-group">

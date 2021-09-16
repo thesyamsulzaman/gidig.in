@@ -20,7 +20,7 @@
         <th>Nama Brand</th>
         <th>Aksi</th>
       </tr>
-      <?php foreach($this->brands as $brand) : ?>
+      <?php foreach ($this->brands as $brand) : ?>
         <tr data-id="<?= $brand->id;  ?>">
           <td data-th="Nama"><?= $brand->id; ?></td>
           <td data-th="Nama"><?= $brand->name; ?></td>
@@ -40,7 +40,6 @@
 
 
 <script type="text/javascript" defer>
-
   function deleteProduct(id) {
     if (window.confirm("Anda yakin ? ")) {
 
@@ -48,21 +47,22 @@
       $data.append("id", id);
 
       fetch(`<?= PROJECT_ROOT; ?>adminbrands/deleteBrand`, {
-        method: "POST",
-        mode: "same-origin",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body:JSON.stringify({ id })
-      })
-      .then(response => response.json())
-      .then(data => {
-        document.querySelector(`tr[data-id='${data.brand_id}']`).remove();
-      })
+          method: "POST",
+          mode: "same-origin",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            id
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.querySelector(`tr[data-id='${data.brand_id}']`).remove();
+        })
     }
   }
-  
 </script>
 
 

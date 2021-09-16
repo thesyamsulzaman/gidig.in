@@ -1,16 +1,18 @@
-<?php 
+<?php
 
 namespace App\Models;
 
 use Core\Model;
 use Core\Helpers;
 
-class ProductImages extends Model {
+class ProductImages extends Model
+{
 	public $id, $url, $product_id, $name, $deleted = 0;
-  protected static $_table = "product_images";
-  protected static $_softDelete = true;
+	protected static $_table = "product_images";
+	protected static $_softDelete = true;
 
-	public static function uploadProductImages($product_id, $uploads) {
+	public static function uploadProductImages($product_id, $uploads)
+	{
 
 		$lastImage = self::findFirst([
 			'conditions' => "product_id = ?",
@@ -20,9 +22,9 @@ class ProductImages extends Model {
 
 		$lastSort = (!$lastImage) ? 0 : $lastImage->sort;
 
-		$path = "uploads". DS ."product_images". DS ."product_" . $product_id . "/";
+		$path = "uploads" . DS . "product_images" . DS . "product_" . $product_id . "/";
 		foreach ($uploads->getFiles() as $file) {
-			$parts = explode(".",$file['name']);
+			$parts = explode(".", $file['name']);
 			$ext = end($parts);
 			$hash = sha1(time() . $product_id . $file['tmp_name']);
 
@@ -32,15 +34,15 @@ class ProductImages extends Model {
 			$image->name = $uploadName;
 			$image->product_id = $product_id;
 			$image->sort = $lastSort;
-      if($image->save()){
-        $uploads->upload($path, $uploadName, $file['tmp_name']);
-        $lastSort++;
-      }
+			if ($image->save()) {
+				$uploads->upload($path, $uploadName, $file['tmp_name']);
+				$lastSort++;
+			}
 		}
-
 	}
 
-	public static function deletebyid($id) {
+	public static function deletebyid($id)
+	{
 		$image = self::findbyid($id);
 		$sort = $image->sort;
 		$afterimages = self::find([
@@ -56,25 +58,26 @@ class ProductImages extends Model {
 		return $image->delete();
 	}
 
-	public static function deleteImages($product_id, $unlink = false) {
+	public static function deleteImages($product_id, $unlink = false)
+	{
 		$images = self::find([
 			'conditions' => "product_id = ?",
-			"bind" => [ $product_id ]
+			"bind" => [$product_id]
 		]);
 
-    foreach($images as $image){
-      $image->delete();
-    }
-    
-    if($unlink){
-      $dirname = UPLOADS_DIR . $bucket . $name. DS .'uploads' . DS . 'product_images' . DS . 'product_' . $product_id;
-      array_map('unlink', glob("$dirname/*.*"));
-      rmdir($dirname);
-    }
+		foreach ($images as $image) {
+			$image->delete();
+		}
 
+		if ($unlink) {
+			$dirname = UPLOADS_DIR . $bucket . $name . DS . 'uploads' . DS . 'product_images' . DS . 'product_' . $product_id;
+			array_map('unlink', glob("$dirname/*.*"));
+			rmdir($dirname);
+		}
 	}
 
-	public static function findByProductId($product_id) {
+	public static function findByProductId($product_id)
+	{
 		$images = self::find([
 			'conditions' => "product_id = ?",
 			'bind' => [(int) $product_id],
@@ -84,7 +87,8 @@ class ProductImages extends Model {
 		return $images;
 	}
 
-	public static function updateSortByProductId($product_id, $sortOrder = []) {
+	public static function updateSortByProductId($product_id, $sortOrder = [])
+	{
 		$images = self::findByProductId($product_id);
 		$i = 0;
 		foreach ($images as $image) {
@@ -94,11 +98,5 @@ class ProductImages extends Model {
 			$image->save();
 			$i++;
 		}
-
-
 	}
-
-
-
 }
- ?>

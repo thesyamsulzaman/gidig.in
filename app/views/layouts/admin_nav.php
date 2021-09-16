@@ -1,13 +1,11 @@
-<?php 
- ?>
+<?php
+?>
 
- <nav class="dashboard-nav">
+<nav class="dashboard-nav">
   <button class="sidebar-toggler">
-  	<i class="fas fa-bars"></i>
+    <i class="fas fa-bars"></i>
   </button>
   <a href="#">
-  	<i class="fas fa-user"></i>
+    <i class="fas fa-user"></i>
   </a>
 </nav>
-
-

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 namespace App\Models;
@@ -10,17 +10,20 @@ use App\Models\Carts;
 use App\Models\Products;
 
 
-class CartItems extends Model {
+class CartItems extends Model
+{
 
-	public $id, $created_at, $updated_at, $cart_id, $product_id, $quantity = 0, $deleted = 0; 
+	public $id, $created_at, $updated_at, $cart_id, $product_id, $quantity = 0, $deleted = 0;
 	protected static $_table 			= 'cart_items';
 	protected static $_softDelete = true;
 
-	public function beforeSave() {
+	public function beforeSave()
+	{
 		$this->timeStamps();
 	}
 
-	public static function findByProductIdOrCreate($cart_id, $product_id) {
+	public static function findByProductIdOrCreate($cart_id, $product_id)
+	{
 		$item = self::find([
 			"conditions" => "cart_id = ? AND product_id = ?",
 			"bind" => [(int)$cart_id, (int)$product_id],
@@ -31,7 +34,7 @@ class CartItems extends Model {
 			$item = new self();
 			$item->cart_id = $cart_id;
 			$item->product_id = $product_id;
-      $item->save();
+			$item->save();
 		}
 
 		Helpers::dnd($item);
@@ -39,23 +42,13 @@ class CartItems extends Model {
 		return $item;
 	}
 
-	public static function addProductToCart($cart_id, $product_id) {
+	public static function addProductToCart($cart_id, $product_id)
+	{
 		$product = Products::findById((int) $product_id);
 		if ($product) {
 			$item = self::findByProductIdOrCreate($cart_id, $product_id);
 		}
 
 		return $item;
-
 	}
-
-
-
 }
-
-
-
-
-
-
- ?>

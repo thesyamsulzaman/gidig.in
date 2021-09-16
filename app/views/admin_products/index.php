@@ -1,18 +1,19 @@
 <?php $this->start('head'); ?>
 <?php $this->end(); ?>
 
-<?php 
+<?php
+
 use Core\Helpers;
 use Core\Session;
 use App\Models\Users;
 
- ?>
+?>
 
 <?php $this->start('body'); ?>
 
 <section id="list-product" class="content-container">
 
-<!--   <div class="alert show alert-success">
+  <!--   <div class="alert show alert-success">
     <i class="fas fa-exclamation-circle"></i> 
     <span>Data Tersimpan</span>
     <div class="close-btn">
@@ -38,24 +39,24 @@ use App\Models\Users;
         <th>Produk Unggulan</th>
         <th>Aksi</th>
       </tr>
-      <?php foreach($this->products as $product) : ?>
+      <?php foreach ($this->products as $product) : ?>
         <tr data-id="<?= $product->id;  ?>">
           <td data-th="Nama"><?= $product->name; ?></td>
           <td data-th="Harga"><?= $product->price; ?></td>
           <td data-th="Ongkir"><?= $product->shipping; ?></td>
           <td data-th="Barang Sewaan">
 
-            <?php if($product->rentable === 1): ?>
+            <?php if ($product->rentable === 1) : ?>
               <i class="fas fa-check-circle"></i>
-            <?php else: ?>
+            <?php else : ?>
               <i class="fas fa-times-circle"></i>
             <?php endif; ?>
-            
-         </td>
+
+          </td>
           <td data-id="<?= $product->id; ?>" data-th="Produk Unggulan">
-            <?php if($product->featured === 1): ?>
+            <?php if ($product->featured === 1) : ?>
               <i class="fas fa-check-circle"></i>
-            <?php else: ?>
+            <?php else : ?>
               <i class="fas fa-times-circle"></i>
             <?php endif; ?>
           </td>
@@ -80,28 +81,29 @@ use App\Models\Users;
 
 
 <script type="text/javascript" defer>
-
   function toggleFeatured(id) {
     fetch(`<?= PROJECT_ROOT; ?>adminproducts/toggleFeatured`, {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body:JSON.stringify({ id })
-    })
-    .then(response => response.json())
-    .then(data => {
-      let starElem = document.querySelector(`i[data-id='${data.product_id}']`);
-      let tdElem = document.querySelector(`td[data-id='${data.product_id}']`);
+        method: "POST",
+        mode: "same-origin",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        let starElem = document.querySelector(`i[data-id='${data.product_id}']`);
+        let tdElem = document.querySelector(`td[data-id='${data.product_id}']`);
 
-      let featured = (data.is_featured) ? "fas fa-star" : "far fa-star" ;
-      let featuredStr = (data.is_featured) ? `<i class="fas fa-check-circle"></i>` : `<i class="fas fa-times-circle"></i>` ;
+        let featured = (data.is_featured) ? "fas fa-star" : "far fa-star";
+        let featuredStr = (data.is_featured) ? `<i class="fas fa-check-circle"></i>` : `<i class="fas fa-times-circle"></i>`;
 
-      tdElem.innerHTML = featuredStr;
-      starElem.className = featured;
-    })
+        tdElem.innerHTML = featuredStr;
+        starElem.className = featured;
+      })
 
 
   }
@@ -113,22 +115,22 @@ use App\Models\Users;
       $data.append("id", id);
 
       fetch(`<?= PROJECT_ROOT; ?>adminproducts/delete`, {
-        method: "POST",
-        mode: "same-origin",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body:JSON.stringify({ id })
-      })
-      .then(response => response.json())
-      .then(data => {
-        document.querySelector(`tr[data-id='${data.product_id}']`).remove();
-      })
+          method: "POST",
+          mode: "same-origin",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            id
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.querySelector(`tr[data-id='${data.product_id}']`).remove();
+        })
     }
   }
-
-  
 </script>
 
 <?php $this->end(); ?>

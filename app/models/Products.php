@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Models;
 
 use Core\Model;
@@ -11,19 +12,22 @@ use Core\Validators\MatchesValidator;
 use App\Models\Brands;
 use App\Models\ProductImages;
 
-class Products extends Model {
+class Products extends Model
+{
 
-	public $id, $user_id, $name, $price, $category, $shipping, $brand_id, $description, $featured = 0,$rentable = 0, $deleted = 0, $created_at, $updated_at;
-  const blackList = ['id','deleted'];
-  protected static $_table = 'products';
-  protected static $_softDelete = true;
+	public $id, $user_id, $name, $price, $category, $shipping, $brand_id, $description, $featured = 0, $rentable = 0, $deleted = 0, $created_at, $updated_at;
+	const blackList = ['id', 'deleted'];
+	protected static $_table = 'products';
+	protected static $_softDelete = true;
 
-	public function __construct() {
+	public function __construct()
+	{
 		$table = "products";
 		parent::__construct($table);
 	}
 
-	public static function findByUserId($user_id, $params = []) {
+	public static function findByUserId($user_id, $params = [])
+	{
 		$conditions = [
 			"conditions" => "user_id = ? ",
 			"bind" => [(int)$user_id],
@@ -34,7 +38,8 @@ class Products extends Model {
 		return self::find($params);
 	}
 
-	public function validator() {
+	public function validator()
+	{
 
 		$requiredFields = [
 			'name' => 'Nama produk wajib diisi',
@@ -52,11 +57,11 @@ class Products extends Model {
 		} else {
 			$this->runValidation(new MatchesValidator($this, ['field' => 'category', 'rule' => 'konsumsi', 'message' => "Hanya bisa diisi oleh konsumsi"]));
 		}
-
 	}
 
-	public function findAll($category = "") {
-    $sql = '
+	public function findAll($category = "")
+	{
+		$sql = '
     	SELECT 
     		products.*, product_images.url
     	FROM 
@@ -68,19 +73,21 @@ class Products extends Model {
     	GROUP BY
     		product_images.product_id';
 
-    
-    return $this->query($sql)->results();
+
+		return $this->query($sql)->results();
 	}
 
-	public static function findByIdAndUserId($id, $user_id) {
+	public static function findByIdAndUserId($id, $user_id)
+	{
 		$conditions = [
 			'conditions' => 'user_id = ? AND id = ?',
-			'bind' => [ (int) $user_id, (int) $id ]
+			'bind' => [(int) $user_id, (int) $id]
 		];
 		return self::findFirst($conditions);
 	}
 
-	public function getBrandName() {
+	public function getBrandName()
+	{
 		if (empty($this->brand_id)) return '';
 		$brand = Brands::findFirst([
 			'conditions' => "id = ?",
@@ -88,41 +95,42 @@ class Products extends Model {
 		]);
 
 		return ($brand) ? $brand->name : '';
-
 	}
 
-	public function getImages() {
+	public function getImages()
+	{
 		return ProductImages::find([
 			'conditions' => "product_id = ?",
 			'bind' => [$this->id],
 			'order' => 'sort ASC'
 		]);
-
 	}
 
-  public function beforeSave(){
-    $this->timeStamps();
-  }
+	public function beforeSave()
+	{
+		$this->timeStamps();
+	}
 
 
-	public function rentable() {
+	public function rentable()
+	{
 		return ($this->rentable === "on");
 	}
 
-	public function featured() {
+	public function featured()
+	{
 		return ($this->featured === "on");
 	}
 
-	public function isRentable($rentable = false) {
+	public function isRentable($rentable = false)
+	{
 		if ($rentable) $this->rentable = 1;
 		else $this->rentable = 0;
 	}
 
-	public function isFeatured($featured = false) {
+	public function isFeatured($featured = false)
+	{
 		if ($featured) $this->featured = 1;
 		else;
 	}
-
-
 }
-?>

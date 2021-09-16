@@ -1,7 +1,7 @@
 <?php $this->start('head'); ?>
 <?php $this->end(); ?>
 
-<?php 
+<?php
 
 use Core\Helpers;
 use App\Models\Users;
@@ -24,10 +24,10 @@ use App\Models\Users;
     </div>
     <div class="user-action">
       <div>
-        <?php if (Users::currentUser()->isSuperAdmin()): ?>
-           <a href="<?= PROJECT_ROOT; ?>admin" class="btn btn-lg">Dashboard</a>
+        <?php if (Users::currentUser()->isSuperAdmin()) : ?>
+          <a href="<?= PROJECT_ROOT; ?>admin" class="btn btn-lg">Dashboard</a>
         <?php endif; ?>
-           <a href="#" class="btn btn-lg">Edit Profile</a>
+        <a href="#" class="btn btn-lg">Edit Profile</a>
       </div>
       <a href="<?= PROJECT_ROOT; ?>user/logout" class="btn btn-lg btn-dark">Logout</a>
     </div>

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Core\Model;
@@ -19,17 +20,19 @@ use Core\Validators\FileExtensionValidator;
 use Core\Validators\FileSizeValidator;
 
 
-class Users extends Model {
-  protected static $_table='users', $_softDelete = true;
+class Users extends Model
+{
+  protected static $_table = 'users', $_softDelete = true;
   public static $currentLoggedInUser = null;
-  
+
   // Table field as a method
-  public $id, $username, $email, $password, $first_name, $last_name, $access_control_level,$deleted = 0, $confirm;
+  public $id, $username, $email, $password, $first_name, $last_name, $access_control_level, $deleted = 0, $confirm;
 
-  public const blackListedFormKeys = ['id','deleted'];
+  public  $blackListedFormKeys = ['id', 'deleted'];
 
 
-  public function validator() {
+  public function validator()
+  {
     // Name Validator
     $this->runValidation(new RequiredValidator($this, ['field' => 'first_name',  'message' => 'First Name is required']));
     $this->runValidation(new RequiredValidator($this, ['field' => 'last_name',  'message' => 'Last Name is required']));
@@ -39,8 +42,8 @@ class Users extends Model {
     $this->runValidation(new EmailValidator($this, ['field' => 'email',  'message' => 'Email is not valid']));
 
     // Username Validator
-    $this->runValidation(new MinValidator($this, [ 'field' => 'username', 'rule' => 6,  'message' => 'Username must be atleast 6 characters' ]));
-    $this->runValidation(new MaxValidator($this, [ 'field' => 'username', 'rule' => 12,  'message' => 'Username cannot be more than 12 characters' ]));
+    $this->runValidation(new MinValidator($this, ['field' => 'username', 'rule' => 6,  'message' => 'Username must be atleast 6 characters']));
+    $this->runValidation(new MaxValidator($this, ['field' => 'username', 'rule' => 12,  'message' => 'Username cannot be more than 12 characters']));
     $this->runValidation(new RequiredValidator($this, ['field' => 'username',  'message' => 'Username is required']));
 
     // Password Validator
@@ -50,32 +53,35 @@ class Users extends Model {
     if ($this->isNew()) {
       $this->runValidation(new MatchesValidator($this, ['field' => 'password', 'rule' => $this->_confirmedPassword, 'message' => "Password should matches"]));
       $this->runValidation(new UniqueValidator($this, ['field' => 'username', 'message' => 'That username already exists, please choosse something else']));
-      $this->runValidation(new MinValidator($this, [ 'field' => 'password', 'rule' => 6,  'message' => 'Password must be atleast 6 characters' ]));
-      $this->runValidation(new MaxValidator($this, [ 'field' => 'password', 'rule' => 12,  'message' => 'Password cannot be more than 12 characters' ]));
+      $this->runValidation(new MinValidator($this, ['field' => 'password', 'rule' => 6,  'message' => 'Password must be atleast 6 characters']));
+      $this->runValidation(new MaxValidator($this, ['field' => 'password', 'rule' => 12,  'message' => 'Password cannot be more than 12 characters']));
     }
-
   }
 
-  public function beforeSave() {
+  public function beforeSave()
+  {
     //$this->timeStamps();
     if ($this->isNew()) {
       $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-    } 
+    }
   }
 
-  public static function findByUsername($username) {
-    return self::findFirst(['conditions'=> "username = ?", 'bind'=>[$username]]);
+  public static function findByUsername($username)
+  {
+    return self::findFirst(['conditions' => "username = ?", 'bind' => [$username]]);
   }
 
 
-  public static function currentUser() {
-    if(!isset(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)) {
+  public static function currentUser()
+  {
+    if (!isset(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)) {
       self::$currentLoggedInUser = self::findById((int)Session::get(CURRENT_USER_SESSION_NAME));
     }
     return self::$currentLoggedInUser;
   }
 
-  public function login($rememberMe = false) {
+  public function login($rememberMe = false)
+  {
     Session::set(CURRENT_USER_SESSION_NAME, $this->id);
     if ($rememberMe) {
       $hash = md5(uniqid());
@@ -89,7 +95,8 @@ class Users extends Model {
     }
   }
 
-  public static function loginUserFromCookie() {
+  public static function loginUserFromCookie()
+  {
     $user_session = UserSessions::getFromCookie();
     if ($user_session && $user_session->user_id != '') {
       $user = self::findById((int)$user_session->user_id);
@@ -100,7 +107,8 @@ class Users extends Model {
     return;
   }
 
-  public function logout() {
+  public function logout()
+  {
     $userSession = UserSessions::getFromCookie();
     if ($userSession) $userSession->delete();
     Session::delete(CURRENT_USER_SESSION_NAME);
@@ -113,17 +121,19 @@ class Users extends Model {
 
 
   // Access Control Level
-  
-  public function acls() {
+
+  public function acls()
+  {
     if (empty($this->access_control_level)) return [];
     return json_decode($this->access_control_level, true);
   }
 
-  public static function addAcl($user_id, $acl) {
+  public static function addAcl($user_id, $acl)
+  {
     $user = self::findById($user_id);
     if (!$user) return false;
     $acls = $user->acls();
-    if(!in_array($acl,$acls)){
+    if (!in_array($acl, $acls)) {
       $acls[] = $acl;
       $user->acl = json_encode($acls);
       $user->save();
@@ -131,12 +141,13 @@ class Users extends Model {
     return true;
   }
 
-  public static function removeAcl($user_id, $acl){
+  public static function removeAcl($user_id, $acl)
+  {
     $user = self::findById($user_id);
-    if(!$user) return false;
+    if (!$user) return false;
     $acls = $user->acls();
-    if(in_array($acl,$acls)){
-      $key = array_search($acl,$acls);
+    if (in_array($acl, $acls)) {
+      $key = array_search($acl, $acls);
       unset($acls[$key]);
       $user->acl = json_encode($acls);
       $user->save();
@@ -144,28 +155,28 @@ class Users extends Model {
     return true;
   }
 
-  public function setConfirmedPassword($value) {
+  public function setConfirmedPassword($value)
+  {
     $this->_confirmedPassword = $value;
   }
 
-  public function getConfirmedPassword() {
+  public function getConfirmedPassword()
+  {
     return $this->_confirmedPassword;
   }
 
-  public function getUserId() {
+  public function getUserId()
+  {
     return $this->id;
   }
 
-  public function displayFullName() {
+  public function displayFullName()
+  {
     return $this->first_name . ' ' . $this->last_name;
   }
 
-  public function isSuperAdmin() {
-    return  (json_decode(self::currentUser()->access_control_level)[0] == "SuperAdmin");
+  public function isSuperAdmin()
+  {
+    return (json_decode(self::currentUser()->access_control_level)[0] == "SuperAdmin");
   }
-
-
 }
-
-
- ?>
