@@ -56,8 +56,8 @@ class Carts extends Model
     		product_images ON product_images.product_id = products.id
     	WHERE
     		cart_items.cart_id = ? AND cart_items.deleted = 0 AND product_images.sort = 0
-        ORDER BY
-      cart_items.created_at DESC
+      ORDER BY
+      	cart_items.created_at DESC
     ';
 
 		$db = Database::getInstance();
